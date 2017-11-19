@@ -64,7 +64,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:background="@drawable/activities_button"
+            android:background="@drawable/app_button"
             android:textColor="@color/colorAccent"
             android:text="Login"/>
 

@@ -4,8 +4,8 @@ package com.example.sergioaraya.bringit.Adapters;
  * Created by SergioAraya on 15/09/2017.
  */
 
-import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +21,16 @@ import java.util.ArrayList;
 
 public class AdapterShoppingLists extends BaseAdapter implements Filterable {
 
-    private Activity activity;
+    private Fragment fragment;
     private Singleton singleton = Singleton.getInstance();
 
     private static LayoutInflater inflater = null;
     private ArrayList<ShoppingList> originalItems;
     private ArrayList<ShoppingList> filteredItems;
 
-    public AdapterShoppingLists(Activity activity, ArrayList<ShoppingList> items) {
-        this.activity = activity;
-        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public AdapterShoppingLists(Fragment fragment, ArrayList<ShoppingList> items) {
+        this.fragment = fragment;
+        inflater = (LayoutInflater) fragment.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.originalItems = items;
         this.filteredItems = items;
     }

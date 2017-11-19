@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="345dp"
+        android:background="@drawable/app_dialog">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10pt"
+            android:text="New shopping list"/>
+
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/title"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <EditText
+            android:layout_below="@+id/divider"
+            android:id="@+id/new_shopping_list_name"
+            android:hint="Shopping list name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:inputType="textCapSentences"
+            android:padding="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:selectAllOnFocus="true"
+            android:nextFocusUp="@id/new_shopping_list_name"
+            android:nextFocusLeft="@id/new_shopping_list_name"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/app_edit_text_background" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/switch_height"
+            android:text="Notifications"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:layout_below="@+id/new_shopping_list_name"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:id="@+id/notifications"/>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/switch_height"
+            android:id="@+id/switch_notifications"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/notifications"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_below="@+id/new_shopping_list_name"/>
+
+        <EditText
+            android:id="@+id/new_shopping_list_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notifications"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Shopping list date"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:focusable="false"
+            android:enabled="false"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/app_edit_text_background" />
+
+        <EditText
+            android:id="@+id/new_shopping_list_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/new_shopping_list_date"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Shopping list hour"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:focusable="false"
+            android:enabled="false"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/app_edit_text_background" />
+
+    </RelativeLayout>
+
+    <com.cuboid.cuboidcirclebutton.CuboidButton
+        android:id="@+id/button_new_shopping_list"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="309dp"
+        android:layout_centerHorizontal="true"
+        app:cub_color="@android:color/white"
+        app:cub_icon="@drawable/ok"
+        app:cub_border_radius="2dp"
+        app:cub_border_color="@color/colorPrimaryDark"
+        app:cub_hover_color="#FFFFFE" />
+
+</RelativeLayout>

@@ -12,9 +12,6 @@ public class Constants {
     private static final String TAG_MA= "MainActivity";
     private static final String TAG_SLSA = "ShopListsActivity";
 
-    // To control de permissions related with the calendar.
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 0;
-
     // A magic number we will use to know that our sign-in error
     // resolution activity has completed.
     private static final int RC_SIGN_IN = 9001;
@@ -40,6 +37,8 @@ public class Constants {
 
     // Regular expression to validate the user password input.
     private static final String PATTERN_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)([A-Za-z\\d]){8,12}$";
+
+    private static final String PATTERN_NUMBER = ".*\\d.*";
 
     private Constants() {}
 
@@ -92,8 +91,6 @@ public class Constants {
 
     public static int getRcSignIn() { return RC_SIGN_IN; }
 
-    public static int getMyPermissionsRequestWriteCalendar() { return MY_PERMISSIONS_REQUEST_WRITE_CALENDAR; }
-
     public static String getUrlDeleteProductShopList() { return URL_DELETEPRODUCTSHOPLIST; }
 
     public static String getUrlUpdateProductShopList() { return URL_UPDATEPRODUCTSHOPLIST; }
@@ -101,4 +98,6 @@ public class Constants {
     public static String getUrlUpdateStateProductShopList() { return URL_UPDATESTATEPRODUCTSHOPLIST; }
 
     public static String getUrlShareShopList() { return URL_SHARESHOPLIST; }
+
+    public static String getPatternNumber() { return PATTERN_NUMBER; }
 }

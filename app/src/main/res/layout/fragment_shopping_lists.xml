@@ -5,11 +5,6 @@
     tools:context="com.example.sergioaraya.bringit.Fragments.ShoppingListsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Shopping List"
-        android:id="@+id/button_shopping_list"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:background="@drawable/app_dialog">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="15dp"
+            android:text="New product"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10pt"
+            android:id="@+id/title"/>
+
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+
+        <View
+            android:id="@id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/title"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <EditText
+            android:layout_below="@+id/divider"
+            android:id="@+id/new_product_name"
+            android:hint="Product name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:inputType="textCapSentences"
+            android:padding="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:selectAllOnFocus="true"
+            android:nextFocusUp="@id/new_product_name"
+            android:nextFocusLeft="@id/new_product_name"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/app_edit_text_background">
+        </EditText>
+
+        <EditText
+            android:layout_below="@+id/new_product_name"
+            android:id="@+id/new_product_quantity"
+            android:hint="Product quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:inputType="textCapSentences"
+            android:padding="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:selectAllOnFocus="true"
+            android:nextFocusUp="@id/new_product_quantity"
+            android:nextFocusLeft="@id/new_product_quantity"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/app_edit_text_background">
+        </EditText>
+
+        <EditText
+            android:layout_below="@+id/new_product_quantity"
+            android:id="@+id/new_product_price"
+            android:hint="Product price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:inputType="textCapSentences"
+            android:padding="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:selectAllOnFocus="true"
+            android:nextFocusUp="@id/new_product_price"
+            android:nextFocusLeft="@id/new_product_price"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/app_edit_text_background">
+        </EditText>
+
+    </RelativeLayout>
+
+    <com.cuboid.cuboidcirclebutton.CuboidButton
+        android:id="@+id/button_new_product"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="294dp"
+        android:layout_centerHorizontal="true"
+        app:cub_color="@android:color/white"
+        app:cub_icon="@drawable/ok"
+        app:cub_border_radius="2dp"
+        app:cub_border_color="@color/colorPrimaryDark"
+        app:cub_hover_color="#FFFFFE" />
+
+</RelativeLayout>

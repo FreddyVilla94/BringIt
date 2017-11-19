@@ -1,18 +1,36 @@
 package com.example.sergioaraya.bringit.Fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.sergioaraya.bringit.Adapters.AdapterShoppingLists;
+import com.example.sergioaraya.bringit.Classes.ShoppingList;
+import com.example.sergioaraya.bringit.Classes.Singleton;
+import com.example.sergioaraya.bringit.Classes.User;
 import com.example.sergioaraya.bringit.R;
+import com.example.sergioaraya.bringit.Requests.Delete;
+import com.example.sergioaraya.bringit.Requests.Post;
+import com.example.sergioaraya.bringit.Requests.Put;
 import com.example.sergioaraya.bringit.ShoppingListProductsActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 
@@ -23,10 +41,18 @@ import butterknife.BindView;
  * to handle interaction events.
  */
 public class ShoppingListsFragment extends Fragment implements View.OnClickListener {
-    @BindView(R.id.button_shopping_list) Button buttonShoppingList;
+
+    Singleton singleton = Singleton.getInstance();
+
+    @BindView(R.id.shopping_lists) ListView shoppingLists;
 
     private OnFragmentInteractionListener mListener;
-    private Intent intent;
+
+    private AdapterShoppingLists adapterShoppingLists;
+
+    private Delete delete; private Post post; private Put put;
+
+    private User user;
 
     public ShoppingListsFragment() {
         // Required empty public constructor
@@ -43,8 +69,8 @@ public class ShoppingListsFragment extends Fragment implements View.OnClickListe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        buttonShoppingList = (Button) getActivity().findViewById(R.id.button_shopping_list);
-        buttonShoppingList.setOnClickListener(this);
+        loadShoppingLists();
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -74,10 +100,6 @@ public class ShoppingListsFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.button_shopping_list:
-                intent = new Intent(getContext(), ShoppingListProductsActivity.class);
-                startActivity(intent);
-                break;
             default:
                 break;
         }
@@ -98,8 +120,132 @@ public class ShoppingListsFragment extends Fragment implements View.OnClickListe
         void onFragmentInteraction(Uri uri);
     }
 
+    /**
+     * Load all shopping list data from user
+     */
+    public void loadShoppingLists(){
 
+        shoppingLists = (ListView) getActivity().findViewById(R.id.shopping_lists);
+        adapterShoppingLists = new AdapterShoppingLists(this, singleton.getUser().getShoppingLists());
+        singleton.setAdapterShoppingLists(adapterShoppingLists);
+        shoppingLists.setAdapter(adapterShoppingLists);
 
+        shoppingLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                singleton.setShoppingList((ShoppingList) parent.getAdapter().getItem(position));
+                Intent intent = new Intent(getContext(), ShoppingListProductsActivity.class);
+                startActivity(intent);
 
+            }
+        });
+
+        shoppingLists.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
+                singleton.setShoppingList((ShoppingList) parent.getAdapter().getItem(position));
+                optionsElement(singleton.getShoppingList());
+                return true;
+            }
+        });
+    }
+
+    /**
+     * Load options for each shopping list
+     * @param shoppingList current shopping list
+     */
+    public void optionsElement(final ShoppingList shoppingList){
+
+        CharSequence[] options = {"Share", "Delete", "Modify"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setTitle(Html.fromHtml("<font color='" + getResources().getColor(R.color.colorPrimary) + "'>" + "Options" + "</font>"));
+        builder.setItems(options, new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int item) {
+                if (item == 0){
+                    //new taskParseJsonToGetUsers().execute(constants.getUrlGetUsers());
+                    Toast.makeText(getContext(), "Calling share method", Toast.LENGTH_LONG).show();
+                } else if (item == 1){
+                    if (singleton.getUser().getShoppingLists().contains(singleton.getShoppingList())) {
+                        new taskDeleteShopList().execute();
+                    }
+                } else {
+                    //createShopListDialogModify();
+                    Toast.makeText(getContext(), "Calling modify method", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    /**
+     * Async task to do a delete request to drop a shopping list
+     */
+    private class taskDeleteShopList extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            delete = new Delete();
+            delete.deleteShopList();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            if (singleton.getStatus() != 200) {
+                try {
+                    throw new Exception("An error deleting the shopping list");
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Shopping list removed", Toast.LENGTH_LONG).show();
+                singleton.getUser().getShoppingLists().remove(singleton.getShoppingList());
+                singleton.getAdapterShoppingLists().notifyDataSetChanged();
+            }
+        }
+    }
+
+    /**
+     * Asyns task to do a put request to modify shopping list data
+     */
+    /*
+    private class taskModifyShopList extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            put = new Put();
+            put.modifyShopList(name, date, time);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            if (singleton.getStatus() != 200) {
+                try {
+                    throw new Exception("Error al modificar la lista de compra");
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Lista de compra modificada", Toast.LENGTH_LONG).show();
+                singleton.getShopList().setName(name);
+                singleton.getShopList().setShopDate(date);
+                singleton.getShopList().setShopTime(time);
+                singleton.getAdapterShopListsUser().notifyDataSetChanged();
+            }
+        }
+    }*/
 
 }
