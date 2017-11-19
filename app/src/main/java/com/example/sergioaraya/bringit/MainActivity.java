@@ -1,5 +1,6 @@
 package com.example.sergioaraya.bringit;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -125,19 +126,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         boolean FragmentTransaction = false;
         fragment = null;
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_shopping_lists) {
+            fragment = new ShoppingListsFragment();
+            FragmentTransaction = true;
+        } else if (id == R.id.nav_products) {
             fragment = new ProductsFragment();
             FragmentTransaction = true;
-        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_chat) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_settings) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_logout) {
+            this.onFinish();
         }
 
         if (FragmentTransaction) {
@@ -148,6 +149,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    protected void onFinish() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        finish();
+        singleton.setUser(new User());
+        startActivity(intent);
     }
 
     @Override
