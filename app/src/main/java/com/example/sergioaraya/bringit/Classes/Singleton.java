@@ -17,6 +17,7 @@ public class Singleton {
     private Product product = new Product();
     private AdapterShoppingLists adapterShoppingLists;
     private AdapterShoppingListProducts adapterShoppingListProducts;
+    private int control;
 
     private Singleton() {}
 
@@ -63,10 +64,11 @@ public class Singleton {
 
     public void setAdapterShoppingLists(AdapterShoppingLists adapterShoppingLists) { this.adapterShoppingLists = adapterShoppingLists; }
 
-    public AdapterShoppingListProducts getAdapterShoppingListProducts() {
-        return adapterShoppingListProducts;
-    }
+    public AdapterShoppingListProducts getAdapterShoppingListProducts() { return adapterShoppingListProducts; }
 
     public void setAdapterShoppingListProducts(AdapterShoppingListProducts adapterShoppingListProducts) { this.adapterShoppingListProducts = adapterShoppingListProducts; }
 
+    public int getControl() { return control; }
+
+    public void setControl(int control) { this.control = control; }
 }

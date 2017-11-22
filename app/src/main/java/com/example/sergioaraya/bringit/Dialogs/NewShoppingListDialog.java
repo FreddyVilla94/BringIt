@@ -34,6 +34,7 @@ import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.Methods.Parse;
 import com.example.sergioaraya.bringit.R;
 import com.example.sergioaraya.bringit.Requests.Post;
+import com.example.sergioaraya.bringit.Requests.Put;
 
 
 import java.text.ParseException;
@@ -60,6 +61,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
     private ShoppingList shoppingList;
     private Parse parse;
     private Post post;
+    private Put put;
 
     public NewShoppingListDialog(Context context) {
         super(context);
@@ -79,6 +81,12 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
         newShoppingListName = (EditText) findViewById(R.id.new_shopping_list_name);
         switchNotifications = (Switch) findViewById(R.id.switch_notifications);
         buttonNewShoppingList = (CuboidButton) findViewById(R.id.button_new_shopping_list);
+
+        if (singleton.getControl() == 1) {
+            newShoppingListName.setText(singleton.getShoppingList().getName());
+            newShoppingListDate.setText(singleton.getShoppingList().getDate());
+            newShoppingListTime.setText(singleton.getShoppingList().getTime());
+        }
 
         newShoppingListDate.setOnClickListener(this);
         newShoppingListTime.setOnClickListener(this);
@@ -158,9 +166,13 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
                         shoppingList.setDate("No date");
                         shoppingList.setTime("No time");
                     }
-
-                    this.dismiss();
-                    new taskSaveShoppingList().execute();
+                    if (singleton.getControl() == 1) {
+                        this.dismiss();
+                        new taskModifyShoppingList().execute();
+                    } else {
+                        this.dismiss();
+                        new taskSaveShoppingList().execute();
+                    }
                 } else {
                     Toast.makeText(getContext(), "Invalid shopping list name", Toast.LENGTH_SHORT).show();
                     newShoppingListName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert,0);
@@ -171,6 +183,39 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
                 break;
         }
 
+    }
+
+    /*
+     * Asyns task to do a put request to modify shopping list data
+     */
+    private class taskModifyShoppingList extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            put = new Put();
+            put.modifyShopList(shoppingList.getName(), shoppingList.getDate(), shoppingList.getTime());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            if (singleton.getStatus() != 200) {
+                try {
+                    throw new Exception("An error modifying shopping list");
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(getContext(), "Shopping list has been modified", Toast.LENGTH_LONG).show();
+                singleton.getShoppingList().setName(shoppingList.getName());
+                singleton.getShoppingList().setDate(shoppingList.getDate());
+                singleton.getShoppingList().setTime(shoppingList.getTime());
+                singleton.getAdapterShoppingLists().notifyDataSetChanged();
+            }
+        }
     }
 
     /**

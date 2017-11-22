@@ -1,11 +1,14 @@
 package com.example.sergioaraya.bringit;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -20,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.sergioaraya.bringit.Classes.Constants;
 import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.Classes.User;
 import com.example.sergioaraya.bringit.Dialogs.NewShoppingListDialog;
@@ -30,6 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductsFragment.OnFragmentInteractionListener, ShoppingListsFragment.OnFragmentInteractionListener {
 
+    Constants constants = Constants.getInstance();
     Singleton singleton = Singleton.getInstance();
 
     private DrawerLayout drawerLayout;
@@ -109,8 +114,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()){
             case R.id.add_shopping_list:
-                NewShoppingListDialog newShoppingListDialog = new NewShoppingListDialog(MainActivity.this);
-                newShoppingListDialog.show();
+                if (ContextCompat.checkSelfPermission(this,
+                        android.Manifest.permission.WRITE_CALENDAR)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{android.Manifest.permission.WRITE_CALENDAR},
+                            constants.getMyPermissionsRequestWriteCalendar());
+                }
+
+                else {
+                    singleton.setControl(0);
+                    NewShoppingListDialog newShoppingListDialog = new NewShoppingListDialog(MainActivity.this);
+                    newShoppingListDialog.show();
+                }
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -180,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         accountUsername.setText(singleton.getUser().getName());
         accountEmail.setText(singleton.getUser().getEmail());
 
-        if (! singleton.getUser().getImage().equals("")) {
+        if (! singleton.getUser().getImage().equals("") && ! singleton.getUser().getImage().equals("#")) {
 
             Glide.with(this.getApplicationContext()).load(singleton.getUser().getImage()).into(accountImage);
         }

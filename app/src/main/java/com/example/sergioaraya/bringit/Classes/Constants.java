@@ -16,6 +16,9 @@ public class Constants {
     // resolution activity has completed.
     private static final int RC_SIGN_IN = 9001;
 
+    // To control de permissions related with the calendar.
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 0;
+
     // REST Services.
     private static final String URL_GETUSERS = "https://listas-comprasb.herokuapp.com/getUsers";
     private static final String URL_GETSHOPLISTSUSER = "https://listas-comprasb.herokuapp.com/getShopListsUser/";
@@ -64,6 +67,8 @@ public class Constants {
     public static String getUrlGetUsers() {
         return URL_GETUSERS;
     }
+
+    public static int getMyPermissionsRequestWriteCalendar() { return MY_PERMISSIONS_REQUEST_WRITE_CALENDAR; }
 
     public static String getUrlGetShopListsUser() {
         return URL_GETSHOPLISTSUSER;

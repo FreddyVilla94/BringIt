@@ -1,8 +1,11 @@
 package com.example.sergioaraya.bringit.Fragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,6 +26,7 @@ import com.example.sergioaraya.bringit.Adapters.AdapterShoppingLists;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
 import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.Classes.User;
+import com.example.sergioaraya.bringit.Dialogs.NewShoppingListDialog;
 import com.example.sergioaraya.bringit.R;
 import com.example.sergioaraya.bringit.Requests.Delete;
 import com.example.sergioaraya.bringit.Requests.Post;
@@ -173,8 +178,7 @@ public class ShoppingListsFragment extends Fragment implements View.OnClickListe
                         new taskDeleteShopList().execute();
                     }
                 } else {
-                    //createShopListDialogModify();
-                    Toast.makeText(getContext(), "Calling modify method", Toast.LENGTH_LONG).show();
+                    createShoppingListDialogModify();
                 }
             }
         });
@@ -182,6 +186,15 @@ public class ShoppingListsFragment extends Fragment implements View.OnClickListe
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
+    }
+
+    /**
+     * Display a dialog to add a new product
+     */
+    private void createShoppingListDialogModify(){
+        singleton.setControl(1);
+        NewShoppingListDialog newShoppingListDialog = new NewShoppingListDialog(getContext());
+        newShoppingListDialog.show();
     }
 
     /**
@@ -213,39 +226,5 @@ public class ShoppingListsFragment extends Fragment implements View.OnClickListe
             }
         }
     }
-
-    /**
-     * Asyns task to do a put request to modify shopping list data
-     */
-    /*
-    private class taskModifyShopList extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            put = new Put();
-            put.modifyShopList(name, date, time);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-            if (singleton.getStatus() != 200) {
-                try {
-                    throw new Exception("Error al modificar la lista de compra");
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-            } else {
-                Toast.makeText(getApplicationContext(), "Lista de compra modificada", Toast.LENGTH_LONG).show();
-                singleton.getShopList().setName(name);
-                singleton.getShopList().setShopDate(date);
-                singleton.getShopList().setShopTime(time);
-                singleton.getAdapterShopListsUser().notifyDataSetChanged();
-            }
-        }
-    }*/
 
 }
