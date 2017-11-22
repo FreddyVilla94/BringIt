@@ -22,7 +22,7 @@ public class Parse {
      * Parse json object to get all the user shopping list including the new one
      * @param url json object from server
      */
-    public void parseJsonToGetNewShopList(String url){
+    public void parseJsonToGetNewShoppingList(String url){
 
         try {
 
@@ -71,6 +71,30 @@ public class Parse {
 
 
             singleton.getShoppingList().setProducts(product);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Get the user from server parsing a json file
+     * @param url
+     */
+    public void parseJsonToGetNewUser(String url){
+
+        try {
+
+            //parsing JSON file
+            JSONObject reader = new JSONObject(url);
+
+            JSONObject user = reader.getJSONObject("user");
+
+            singleton.getUser().setId(user.getString("_id"));
+            singleton.getUser().setImage(user.getString("userImage"));
+            singleton.getUser().setEmail(user.getString("email"));
+            singleton.getUser().setName(user.getString("name"));
 
         } catch (JSONException e) {
             e.printStackTrace();

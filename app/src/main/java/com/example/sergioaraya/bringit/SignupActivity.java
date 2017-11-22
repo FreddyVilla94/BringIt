@@ -19,6 +19,7 @@ import com.example.sergioaraya.bringit.Classes.Constants;
 import com.example.sergioaraya.bringit.Classes.Product;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
 import com.example.sergioaraya.bringit.Classes.Singleton;
+import com.example.sergioaraya.bringit.Methods.Parse;
 import com.example.sergioaraya.bringit.Requests.Post;
 
 import org.json.JSONArray;
@@ -56,6 +57,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressDialog progressDialog;
 
     private Post post;
+    private Parse parse;
 
     private ShoppingList shoppingList;
     private Product product;
@@ -145,30 +147,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Get the user from server parsing a json file
-     * @param url
-     */
-    private void parseJsonToGetUser(String url){
-
-        try {
-
-            //parsing JSON file
-            JSONObject reader = new JSONObject(url);
-
-            JSONObject user = reader.getJSONObject("user");
-
-            singleton.getUser().setId(user.getString("_id"));
-            singleton.getUser().setImage(user.getString("userImage"));
-            singleton.getUser().setEmail(user.getString("email"));
-            singleton.getUser().setName(user.getString("name"));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
      * Async task to authenticate user when login button is pressed
      */
     private class taskAuthenticate extends AsyncTask<Void, Void, Void> {
@@ -187,8 +165,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                 progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "An error authentication user", Toast.LENGTH_LONG).show();
             } else {
-                parseJsonToGetUser(singleton.getBody());
-                new taskParseJsonToGetUserShopLists().execute(constants.getUrlGetShopListsUser() + singleton.getUser().getId());
+                parse = new Parse();
+                parse.parseJsonToGetNewUser(singleton.getBody());
+                new taskParseJsonToGetUserShoppingLists().execute(constants.getUrlGetShopListsUser() + singleton.getUser().getId());
             }
         }
     }
@@ -196,7 +175,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     /**
      * Async task to get all data, shopping list and products from user
      */
-    private class taskParseJsonToGetUserShopLists extends AsyncTask<String, Void, String> {
+    private class taskParseJsonToGetUserShoppingLists extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... urls) {
