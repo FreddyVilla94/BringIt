@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@drawable/app_dialog">
+
+        <TextView
+            android:id="@+id/share_shopping_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10pt" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_below="@+id/share_shopping_list_title"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <AutoCompleteTextView
+            android:id="@+id/share_shopping_list_auto_complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:textSize="8pt"
+            android:hint="Place a user email" />
+
+    </RelativeLayout>
+
+    <com.cuboid.cuboidcirclebutton.CuboidButton
+        android:id="@+id/button_share_shopping_list"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="134dp"
+        android:layout_centerHorizontal="true"
+        app:cub_color="@android:color/white"
+        app:cub_icon="@drawable/ok"
+        app:cub_border_radius="2dp"
+        app:cub_border_color="@color/colorPrimaryDark"
+        app:cub_hover_color="#FFFFFE" />
+
+</RelativeLayout>

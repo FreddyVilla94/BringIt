@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         // delay in presenting the user with the next sign in step.
         progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Signing in...");
+        progressDialog.setMessage(getResources().getString(R.string.login_activity_signing_in));
 
         activityLogin = (ScrollView) findViewById(R.id.activity_login);
         activityLogin.setOnTouchListener(new View.OnTouchListener() {
@@ -167,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             @Override
             public void onCancel() {
-                Toast.makeText(LoginActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_activity_login_cancelled), Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -219,7 +219,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         } else{
             updateUI(false);
-            Toast.makeText(LoginActivity.this, "Authentification fail, please check your connection",
+            Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_activity_authentification_fail),
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -240,11 +240,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             case R.id.button_login:
                 if (isNetAvailed()){
                     if (! (validateFormat(loginEmail.getText().toString(), false)) || loginEmail.getText().toString().equals("")) {
-                        Toast.makeText(getApplicationContext(), "Invalid data", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_invalid_data), Toast.LENGTH_LONG).show();
                         loginEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
                         loginPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
                     } else if (! (validateFormat(loginPassword.getText().toString(), true)) || loginPassword.getText().toString().equals("")) {
-                        Toast.makeText(getApplicationContext(), "Invalid data", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_invalid_data), Toast.LENGTH_LONG).show();
                         loginEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
                         loginPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
                     } else {
@@ -254,7 +254,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         new taskAuthenticate().execute();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please check your net connection!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_net_connection), Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.button_google:
@@ -265,7 +265,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
                     startActivityForResult(intent, constants.getRcSignIn());
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please check your net connection!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_net_connection), Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.button_twitter:
@@ -275,7 +275,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     // Login with facebook on clicking custom button.
                     LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "email"));
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please check your net connection!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_net_connection), Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.register_link:
@@ -362,7 +362,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         protected void onPostExecute(Void result) {
             if (singleton.getStatus() != 200){
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "An error has occurred!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_error_authenfication), Toast.LENGTH_LONG).show();
             } else {
                 parseJsonToGetUser(singleton.getBody());
                 new taskParseJsonToGetUserShopLists().execute(constants.getUrlGetShopListsUser() + singleton.getUser().getId());
@@ -388,7 +388,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
             if (singleton.getStatus() != 200){
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "An error has occurred!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_error_authenfication), Toast.LENGTH_LONG).show();
             } else {
                 parseJsonToGetUser(singleton.getBody());
                 new taskParseJsonToGetUserShopLists().execute(constants.getUrlGetShopListsUser() + singleton.getUser().getId());

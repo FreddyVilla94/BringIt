@@ -3,6 +3,8 @@ package com.example.sergioaraya.bringit;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -116,18 +118,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         return matcher.matches();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_register:
                 if (registerUsername.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(), "Invalid username", Toast.LENGTH_LONG).show();
+                    registerUsername.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.sign_up_activity_invalid_username), Toast.LENGTH_LONG).show();
                 } else if (! (validateFormat(registerEmail.getText().toString(), false)) || registerEmail.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_LONG).show();
+                    registerEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.sign_up_activity_invalid_email), Toast.LENGTH_LONG).show();
                 } else if (! (validateFormat(registerPassword.getText().toString(), true)) || registerPassword.getText().toString().equals("")) {
-                    Toast.makeText(getApplicationContext(), "Invalid password", Toast.LENGTH_LONG).show();
+                    registerPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.sign_up_activity_invalid_password), Toast.LENGTH_LONG).show();
                 } else if (! registerPassword.getText().toString().equals(registerConfirmPassword.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "Invalid confirm password", Toast.LENGTH_LONG).show();
+                    registerConfirmPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.sign_up_activity_invalid_confirm_password), Toast.LENGTH_LONG).show();
                 } else {
                     singleton.getUser().setImage("");
                     singleton.getUser().setName(registerUsername.getText().toString());
@@ -163,7 +170,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         protected void onPostExecute(Void result) {
             if (singleton.getStatus() != 200){
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "An error authentication user", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_activity_error_authenfication), Toast.LENGTH_LONG).show();
             } else {
                 parse = new Parse();
                 parse.parseJsonToGetNewUser(singleton.getBody());
@@ -275,7 +282,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
             if (singleton.getStatus() != 200){
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "An error signing up", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.sign_up_activity_error_signing_up), Toast.LENGTH_LONG).show();
 
             } else {
                 new taskAuthenticate().onPostExecute(result);

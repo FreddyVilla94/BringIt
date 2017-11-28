@@ -5,27 +5,27 @@
         <item
             android:id="@+id/nav_shopping_lists"
             android:icon="@drawable/app_shopping_lists"
-            android:title="Shopping lists" />
+            android:title="@string/main_activity_shopping_lists" />
         <item
             android:id="@+id/nav_products"
             android:icon="@drawable/app_products"
-            android:title="Products" />
+            android:title="@string/main_activity_products" />
         <item
             android:id="@+id/nav_chat"
             android:icon="@drawable/app_chat"
-            android:title="Chat" />
+            android:title="@string/main_activity_chat" />
     </group>
 
-    <item android:title="Configuration">
+    <item android:title="@string/main_activity_configuration">
         <menu>
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/app_settings"
-                android:title="Settings" />
+                android:title="@string/main_activity_settings" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/app_shutdown"
-                android:title="Logout" />
+                android:title="@string/main_activity_log_out" />
         </menu>
     </item>
 

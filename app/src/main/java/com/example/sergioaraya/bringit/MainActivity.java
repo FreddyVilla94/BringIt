@@ -28,11 +28,12 @@ import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.Classes.User;
 import com.example.sergioaraya.bringit.Dialogs.NewShoppingListDialog;
 import com.example.sergioaraya.bringit.Fragments.ProductsFragment;
+import com.example.sergioaraya.bringit.Fragments.SettingsFragment;
 import com.example.sergioaraya.bringit.Fragments.ShoppingListsFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductsFragment.OnFragmentInteractionListener, ShoppingListsFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ProductsFragment.OnFragmentInteractionListener, ShoppingListsFragment.OnFragmentInteractionListener, SettingsFragment.OnFragmentInteractionListener {
 
     Constants constants = Constants.getInstance();
     Singleton singleton = Singleton.getInstance();
@@ -52,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Your shopping lists");
-        toolbar.setSubtitle("Welcome!");
+        toolbar.setTitle(getResources().getString(R.string.main_activity_your_shopping_lists));
+        toolbar.setSubtitle(getResources().getString(R.string.main_activity_greeting));
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
                 else {
-                    singleton.setControl(0);
+                    singleton.setControlUpdateShoppingList(0);
                     NewShoppingListDialog newShoppingListDialog = new NewShoppingListDialog(MainActivity.this);
                     newShoppingListDialog.show();
                 }
@@ -133,40 +134,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        boolean FragmentTransaction = false;
-        fragment = null;
-
-        if (id == R.id.nav_shopping_lists) {
-            fragment = new ShoppingListsFragment();
-            FragmentTransaction = true;
-        } else if (id == R.id.nav_products) {
-            fragment = new ProductsFragment();
-            FragmentTransaction = true;
-
-        } else if (id == R.id.nav_chat) {
-
-        } else if (id == R.id.nav_settings) {
-
-        } else if (id == R.id.nav_logout) {
-            this.onFinish();
-        }
-
-        if (FragmentTransaction) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_main, fragment)
-                    .commit();
-            item.setChecked(true);
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     protected void onFinish() {
@@ -208,4 +175,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             accountImage.setImageResource(R.drawable.account_image);
         }
     }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        boolean FragmentTransaction = false;
+        fragment = null;
+
+        if (id == R.id.nav_shopping_lists) {
+            fragment = new ShoppingListsFragment();
+            FragmentTransaction = true;
+        } else if (id == R.id.nav_products) {
+            fragment = new ProductsFragment();
+            FragmentTransaction = true;
+
+        } else if (id == R.id.nav_chat) {
+
+        } else if (id == R.id.nav_settings) {
+            fragment = new SettingsFragment();
+            FragmentTransaction = true;
+        } else if (id == R.id.nav_logout) {
+            this.onFinish();
+        }
+
+        if (FragmentTransaction) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main, fragment)
+                    .commit();
+            item.setChecked(true);
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 }

@@ -13,4 +13,77 @@
     <string name="nine">Nueve</string>
     <string name="ten">Diez</string>
 
+    <!--Login activity resources -->
+    <string name="login_activity_email">Correo</string>
+    <string name="login_activity_password">Contraseña</string>
+    <string name="login_activity_login">Login</string>
+    <string name="login_activity_or">o</string>
+    <string name="login_activity_register">Sin cuenta todavía? Créese una</string>
+
+    <string name="login_activity_signing_in">Iniciando sesión...</string>
+    <string name="login_activity_login_cancelled">Login cancelado</string>
+    <string name="login_activity_authentification_fail">La autentificación ha fallado, revisa tu conexión</string>
+    <string name="login_activity_invalid_data">Datos inválidos</string>
+    <string name="login_activity_net_connection">Por favor revisa tu conexión a la red</string>
+    <string name="login_activity_error_authenfication">Se ha producido un error al autentificar el usuario</string>
+
+    <!-- Sign up activity resources -->
+    <string name="sign_up_activity_username">Nombre de usuario</string>
+    <string name="sign_up_activity_email">Correo</string>
+    <string name="sign_up_activity_password">Contraseña</string>
+    <string name="sign_up_activity_confirm_password">Confirma contraseña</string>
+    <string name="sign_up_activity_create_account">Crear cuenta</string>
+    <string name="sign_up_activity_login">Ya eres miembro? Login</string>
+
+    <string name="sign_up_activity_invalid_username">Nombre de usuario inválido</string>
+    <string name="sign_up_activity_invalid_email">Correo inválido</string>
+    <string name="sign_up_activity_invalid_password">Contraseña inválida</string>
+    <string name="sign_up_activity_invalid_confirm_password">Confirmación de contraseña inválida</string>
+    <string name="sign_up_activity_error_signing_up">Un error al registrarse</string>
+
+    <!-- Main activity resources -->
+    <string name="main_activity_your_shopping_lists">Tus listas de compra</string>
+    <string name="main_activity_greeting">Bienvenido!</string>
+    <string name="main_activity_shopping_lists">Listas de compra</string>
+    <string name="main_activity_products">Productos</string>
+    <string name="main_activity_chat">Chat</string>
+    <string name="main_activity_configuration">Configuración</string>
+    <string name="main_activity_settings">Ajustes</string>
+    <string name="main_activity_log_out">Salir</string>
+
+    <!-- Shopping list resources -->
+    <string name="shopping_list_options">Opciones</string>
+    <string name="shopping_list_share">Compartir</string>
+    <string name="shopping_list_share_title">Compartir lista de compra</string>
+    <string name="shopping_list_delete">Eliminar</string>
+    <string name="shopping_list_modify">Modificar</string>
+
+    <string name="shopping_list_share_error">Error al compartir la lista de compra</string>
+    <string name="shopping_list_share_success">Lista de compra ha sido compartida</string>
+    <string name="shopping_list_delete_error">Error al eliminar la lista de compra</string>
+    <string name="shopping_list_delete_success">Lista de compra ha sido eliminada</string>
+
+    <!-- Product resources -->
+    <string name="product_options">Opciones</string>
+    <string name="product_modify">Modificar</string>
+    <string name="product_delete">Eliminar</string>
+    <string name="product_quantity">Cant.</string>
+    <string name="product_description">Descripción</string>
+    <string name="product_price">Precio</string>
+
+    <string name="product_on_list">En lista</string>
+    <string name="product_in_cart">En carrito</string>
+    <string name="product_total_price">Total</string>
+
+    <string name="product_modify_status_error">Error al añadir el producto al carrito</string>
+    <string name="product_modify_status_success">Producto añadido al carrito</string>
+    <string name="product_delete_error">Error al eliminar el producto</string>
+    <string name="product_delete_success">Producto ha sido eliminado</string>
+    <string name="product_save_error">Error al añadir el producto</string>
+    <string name="product_save_success">Producto ha sido añadido</string>
+
+    <!-- Settings  resources -->
+    <string name="spanish">Español</string>
+    <string name="english">Inglés</string>
+
 </resources>

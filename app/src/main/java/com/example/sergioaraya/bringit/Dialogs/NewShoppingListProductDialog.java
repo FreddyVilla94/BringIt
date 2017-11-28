@@ -20,6 +20,8 @@ import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.Methods.Parse;
 import com.example.sergioaraya.bringit.R;
 import com.example.sergioaraya.bringit.Requests.Post;
+import com.example.sergioaraya.bringit.Requests.Put;
+import com.example.sergioaraya.bringit.ShoppingListProductsActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -43,7 +45,7 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
 
     private Parse parse;
     private Post post;
-
+    private Put put;
 
     public NewShoppingListProductDialog(Context context) {
         super(context);
@@ -62,6 +64,12 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
         newProductQuantity = (EditText) findViewById(R.id.new_product_quantity);
         newProductPrice = (EditText) findViewById(R.id.new_product_price);
         buttonNewProduct = (CuboidButton) findViewById(R.id.button_new_product);
+
+        if (singleton.getControlUpdateProduct() == 1) {
+            newProductName.setText(singleton.getProduct().getName());
+            newProductQuantity.setText(String.valueOf(singleton.getProduct().getQuantity()));
+            newProductPrice.setText(String.valueOf(singleton.getProduct().getPrice()));
+        }
 
         buttonNewProduct.setOnClickListener(this);
 
@@ -100,8 +108,13 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
                     } else {
                         product.setPrice(Integer.parseInt(newProductPrice.getText().toString()));
                     }
-                    this.dismiss();
-                    new taskSaveProductShoppingList().execute();
+                    if (singleton.getControlUpdateProduct() == 1) {
+                        this.dismiss();
+                        new taskModifyProductShoppingList ().execute();
+                    } else {
+                        this.dismiss();
+                        new taskSaveProductShoppingList().execute();
+                    }
                 }
                 break;
             default:
@@ -149,6 +162,39 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
                 Toast.makeText(getContext(), "The product has been added", Toast.LENGTH_LONG).show();
                 parse = new Parse();
                 parse.parseJsonToGetNewProduct(singleton.getBody());
+                singleton.getAdapterShoppingListProducts().notifyDataSetChanged();
+            }
+        }
+    }
+
+    /**
+     * Async task to do a update request on modify product data
+     */
+    private class taskModifyProductShoppingList extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            put = new Put();
+            put.modifyProductShoppingList(product.getName(), String.valueOf(product.getQuantity()), String.valueOf(product.getPrice()));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            if (singleton.getStatus() != 200) {
+                try {
+                    throw new Exception("An error when modifying the product");
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(getContext(), "Product has been modified", Toast.LENGTH_LONG).show();
+                singleton.getProduct().setName(product.getName());
+                singleton.getProduct().setQuantity(Integer.parseInt(String.valueOf(product.getQuantity())));
+                singleton.getProduct().setPrice(Integer.parseInt(String.valueOf(product.getPrice())));
                 singleton.getAdapterShoppingListProducts().notifyDataSetChanged();
             }
         }

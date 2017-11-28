@@ -30,7 +30,7 @@ public class Put {
     /**
      * Update product state
      */
-    public void updateStateProductShopList(){
+    public void updateStateProductShoppingList(){
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpPut httpPut = new HttpPut(constants.getUrlUpdateStateProductShopList() + singleton.getProduct().getId());
@@ -59,7 +59,7 @@ public class Put {
      * @param quantity product
      * @param price product
      */
-    public void modifyProductShopList(String name, String quantity, String price) {
+    public void modifyProductShoppingList(String name, String quantity, String price) {
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpPut httpPut = new HttpPut(constants.getUrlUpdateProductShopList() + singleton.getProduct().getId());
@@ -89,7 +89,7 @@ public class Put {
      * @param date shopping list for notifications
      * @param time shopping list for notifications
      */
-    public void modifyShopList(String name, String date, String time) {
+    public void modifyShoppingList(String name, String date, String time) {
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpPut httpPut = new HttpPut(constants.getUrlUpdateShopList() + singleton.getShoppingList().getId());
@@ -119,7 +119,7 @@ public class Put {
      * Share shopping list with other user
      * @param id user
      */
-    public void shareShopList(String id) {
+    public void shareShoppingList(String id) {
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpPut httpPut = new HttpPut(constants.getUrlShareShopList() + singleton.getShoppingList().getId());

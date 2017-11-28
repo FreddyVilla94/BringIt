@@ -82,7 +82,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
         switchNotifications = (Switch) findViewById(R.id.switch_notifications);
         buttonNewShoppingList = (CuboidButton) findViewById(R.id.button_new_shopping_list);
 
-        if (singleton.getControl() == 1) {
+        if (singleton.getControlUpdateShoppingList() == 1) {
             newShoppingListName.setText(singleton.getShoppingList().getName());
             newShoppingListDate.setText(singleton.getShoppingList().getDate());
             newShoppingListTime.setText(singleton.getShoppingList().getTime());
@@ -166,7 +166,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
                         shoppingList.setDate("No date");
                         shoppingList.setTime("No time");
                     }
-                    if (singleton.getControl() == 1) {
+                    if (singleton.getControlUpdateShoppingList() == 1) {
                         this.dismiss();
                         new taskModifyShoppingList().execute();
                     } else {
@@ -194,7 +194,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
         protected Void doInBackground(Void... params) {
 
             put = new Put();
-            put.modifyShopList(shoppingList.getName(), shoppingList.getDate(), shoppingList.getTime());
+            put.modifyShoppingList(shoppingList.getName(), shoppingList.getDate(), shoppingList.getTime());
             return null;
         }
 
@@ -319,7 +319,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
             } else {
                 Toast.makeText(getContext(), "The shopping list has been added", Toast.LENGTH_LONG).show();
                 parse = new Parse();
-                parse.parseJsonToGetNewShopList(singleton.getBody());
+                parse.parseJsonToGetNewShoppingList(singleton.getBody());
                 singleton.getAdapterShoppingLists().notifyDataSetChanged();
             }
         }

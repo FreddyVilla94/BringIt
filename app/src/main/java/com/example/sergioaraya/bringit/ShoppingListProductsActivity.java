@@ -1,11 +1,8 @@
 package com.example.sergioaraya.bringit;
 
-import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.AlertDialog;
@@ -18,13 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cuboid.cuboidcirclebutton.CuboidButton;
 import com.example.sergioaraya.bringit.Adapters.AdapterShoppingListProducts;
 import com.example.sergioaraya.bringit.Classes.Product;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
@@ -98,10 +93,12 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.add_product_shopping_list_text:
+                singleton.setControlUpdateProduct(0);
                 NewShoppingListProductDialog newShoppingListProductDialog = new NewShoppingListProductDialog(ShoppingListProductsActivity.this);
                 newShoppingListProductDialog.show();
                 return true;
             case R.id.add_product_shopping_list_speech:
+                singleton.setControlUpdateProduct(0);
                 promptSpeechInput();
                 return true;
             case R.id.search_product:
@@ -161,11 +158,11 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
      */
     public void optionsElement(final Product product) {
 
-        CharSequence[] options = {"Delete", "Modify"};
+        CharSequence[] options = {getResources().getString(R.string.product_delete), getResources().getString(R.string.product_modify)};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle(Html.fromHtml("<font color='" + getResources().getColor(R.color.colorPrimary) + "'>" + "Options" + "</font>"));
+        builder.setTitle(Html.fromHtml("<font color='" + getResources().getColor(R.color.colorPrimary) + "'>" + getResources().getString(R.string.product_options) + "</font>"));
         builder.setItems(options, new DialogInterface.OnClickListener(){
 
             @Override
@@ -302,13 +299,16 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
 
         product = new Product();
 
-        if (! numbers.equals(" ")) {
+        if (! numbers.equals("")) {
             for (Map.Entry<String, Integer> entry : numbersDictionary.entrySet()) {
                 if (entry.getKey().equals(numbers)) {
                     numbers = String.valueOf(entry.getValue());
                 }
             }
+        } else {
+            numbers = "1";
         }
+
         product.setQuantity(Integer.parseInt(numbers));
         letters = letters.substring(0, 1).toUpperCase() + letters.substring(1);
         product.setName(letters);
@@ -331,37 +331,22 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
         return control;
     }
 
+    public boolean isNumber(String  string) {
+        try {
+            Integer.parseInt(String.valueOf(string));
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
+
     /**
      * Display a dialog to add a new product
      */
-    private void createProductShoppingListDialogModify(){
-
-        final Dialog dialog = new Dialog(ShoppingListProductsActivity.this);
-        dialog.setContentView(R.layout.dialog_new_shopping_list_product);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        final EditText productName = (EditText) dialog.findViewById(R.id.new_product_name);
-        final EditText productQuantity = (EditText) dialog.findViewById(R.id.new_product_quantity);
-        final EditText productPrice = (EditText) dialog.findViewById(R.id.new_product_price);
-
-        productName.setText(singleton.getProduct().getName());
-        productQuantity.setText(String.valueOf(singleton.getProduct().getQuantity()));
-        productPrice.setText(String.valueOf(singleton.getProduct().getPrice()));
-
-        CuboidButton buttonUpdateProduct = (CuboidButton) dialog.findViewById(R.id.button_new_product);
-        buttonUpdateProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                product = new Product();
-                product.setName(productName.getText().toString());
-                product.setQuantity(Integer.parseInt(productQuantity.getText().toString()));
-                product.setPrice(Integer.parseInt(productPrice.getText().toString()));
-                new taskModifyProductShoppingList().execute();
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
+    private void createProductShoppingListDialogModify() {
+        singleton.setControlUpdateProduct(1);
+        NewShoppingListProductDialog newShoppingListProductDialog = new NewShoppingListProductDialog(this);
+        newShoppingListProductDialog.show();
     }
 
     /**
@@ -384,9 +369,9 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
                 cart += 1;
             }
         }
-        onList.setText("In list:" + " " + String.valueOf(list));
-        inCart.setText("In cart:" + " " + String.valueOf(cart));
-        totalPrice.setText("Total:" + " " + String.valueOf(total));
+        onList.setText(getResources().getString(R.string.product_on_list) + " " + String.valueOf(list));
+        inCart.setText(getResources().getString(R.string.product_in_cart) + " " + String.valueOf(cart));
+        totalPrice.setText(getResources().getString(R.string.product_total_price) + " " + String.valueOf(total));
     }
 
     /**
@@ -407,49 +392,15 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             if (singleton.getStatus() != 200) {
                 try {
-                    throw new Exception("An error when adding a product");
+                    throw new Exception(getResources().getString(R.string.product_save_error));
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             } else {
-                Toast.makeText(getApplicationContext(), "The product has been added", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.product_save_success), Toast.LENGTH_LONG).show();
                 parse = new Parse();
                 parse.parseJsonToGetNewProduct(singleton.getBody());
-                singleton.getAdapterShoppingListProducts().notifyDataSetChanged();
-                setDownBarVariables();
-            }
-        }
-    }
-
-    /**
-     * Async task to do a update request on modify product data
-     */
-    private class taskModifyProductShoppingList extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            put = new Put();
-            put.modifyProductShopList(product.getName(), String.valueOf(product.getQuantity()), String.valueOf(product.getPrice()));
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-            if (singleton.getStatus() != 200) {
-                try {
-                    throw new Exception("An error when modifying the product");
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-            } else {
-                Toast.makeText(getApplicationContext(), "Product has been modified", Toast.LENGTH_LONG).show();
-                singleton.getProduct().setName(product.getName());
-                singleton.getProduct().setQuantity(Integer.parseInt(String.valueOf(product.getQuantity())));
-                singleton.getProduct().setPrice(Integer.parseInt(String.valueOf(product.getPrice())));
                 singleton.getAdapterShoppingListProducts().notifyDataSetChanged();
                 setDownBarVariables();
             }
@@ -465,7 +416,7 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
             put = new Put();
-            put.updateStateProductShopList();
+            put.updateStateProductShoppingList();
             return null;
         }
 
@@ -473,10 +424,10 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
 
             if (singleton.getStatus() != 200) {
-                Toast.makeText(getApplicationContext(), "An error when modifying the product status", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.product_modify_status_error), Toast.LENGTH_LONG).show();
 
             } else {
-                Toast.makeText(getApplicationContext(), "Product status modified", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.product_modify_status_success), Toast.LENGTH_LONG).show();
                 singleton.getAdapterShoppingListProducts().notifyDataSetChanged();
                 setDownBarVariables();
             }
@@ -502,16 +453,22 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
 
             if (singleton.getStatus() != 200) {
                 try {
-                    throw new Exception("An error when removing the product");
+                    throw new Exception(getResources().getString(R.string.product_delete_error));
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "The product has been eliminated", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.product_delete_success), Toast.LENGTH_LONG).show();
                 singleton.getShoppingList().getProducts().remove(singleton.getProduct());
                 singleton.getAdapterShoppingListProducts().notifyDataSetChanged();
                 setDownBarVariables();
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setDownBarVariables();
     }
 }
