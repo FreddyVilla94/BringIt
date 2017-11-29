@@ -163,8 +163,8 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
                         shoppingList.setTime(newShoppingListTime.getText().toString());
                         createNotification(shoppingList.getName());
                     } else {
-                        shoppingList.setDate("No date");
-                        shoppingList.setTime("No time");
+                        shoppingList.setDate(getContext().getResources().getString(R.string.shopping_list_no_date));
+                        shoppingList.setTime(getContext().getResources().getString(R.string.shopping_list_no_time));
                     }
                     if (singleton.getControlUpdateShoppingList() == 1) {
                         this.dismiss();
@@ -174,7 +174,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
                         new taskSaveShoppingList().execute();
                     }
                 } else {
-                    Toast.makeText(getContext(), "Invalid shopping list name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.shopping_list_invalid_name), Toast.LENGTH_SHORT).show();
                     newShoppingListName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert,0);
                 }
                 break;
@@ -183,39 +183,6 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
                 break;
         }
 
-    }
-
-    /*
-     * Asyns task to do a put request to modify shopping list data
-     */
-    private class taskModifyShoppingList extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            put = new Put();
-            put.modifyShoppingList(shoppingList.getName(), shoppingList.getDate(), shoppingList.getTime());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-
-            if (singleton.getStatus() != 200) {
-                try {
-                    throw new Exception("An error modifying shopping list");
-                } catch (Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
-            } else {
-                Toast.makeText(getContext(), "Shopping list has been modified", Toast.LENGTH_LONG).show();
-                singleton.getShoppingList().setName(shoppingList.getName());
-                singleton.getShoppingList().setDate(shoppingList.getDate());
-                singleton.getShoppingList().setTime(shoppingList.getTime());
-                singleton.getAdapterShoppingLists().notifyDataSetChanged();
-            }
-        }
     }
 
     /**
@@ -274,7 +241,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Events.DTSTART, startMillis);
         values.put(CalendarContract.Events.DTEND, endMillis);
-        values.put(CalendarContract.Events.TITLE, title + " " + "is pending!");
+        values.put(CalendarContract.Events.TITLE, title + " " + getContext().getResources().getString(R.string.shopping_list_pending));
         values.put(CalendarContract.Events.DESCRIPTION, "Bring It!");
         values.put(CalendarContract.Events.CALENDAR_ID, 1);
         values.put(CalendarContract.Events.EVENT_TIMEZONE, Calendar.getInstance().getTimeZone().getID());
@@ -291,6 +258,39 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
         values.put(CalendarContract.Reminders.EVENT_ID, eventID);
         values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
         uri = cr.insert(CalendarContract.Reminders.CONTENT_URI, values);
+    }
+
+    /*
+     * Asyns task to do a put request to modify shopping list data
+     */
+    private class taskModifyShoppingList extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            put = new Put();
+            put.modifyShoppingList(shoppingList.getName(), shoppingList.getDate(), shoppingList.getTime());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            if (singleton.getStatus() != 200) {
+                try {
+                    throw new Exception(getContext().getResources().getString(R.string.shopping_list_modify_error));
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.shopping_list_modify_success), Toast.LENGTH_LONG).show();
+                singleton.getShoppingList().setName(shoppingList.getName());
+                singleton.getShoppingList().setDate(shoppingList.getDate());
+                singleton.getShoppingList().setTime(shoppingList.getTime());
+                singleton.getAdapterShoppingLists().notifyDataSetChanged();
+            }
+        }
     }
 
     /**
@@ -310,14 +310,10 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
         @Override
         protected void onPostExecute(Void result) {
             if (singleton.getStatus() != 200) {
-                try {
-                    throw new Exception("An error when adding the shopping list");
-                } catch (Exception e) {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.shopping_list_save_error), Toast.LENGTH_LONG).show();
 
             } else {
-                Toast.makeText(getContext(), "The shopping list has been added", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.shopping_list_save_success), Toast.LENGTH_LONG).show();
                 parse = new Parse();
                 parse.parseJsonToGetNewShoppingList(singleton.getBody());
                 singleton.getAdapterShoppingLists().notifyDataSetChanged();

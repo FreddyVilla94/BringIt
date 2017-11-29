@@ -87,13 +87,13 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
 
             case R.id.button_new_product:
                 if (newProductName.getText().toString().equals("") || newProductName.getText().toString().length() < 3) {
-                    Toast.makeText(getContext(), "Invalid product name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.product_invalid_name), Toast.LENGTH_SHORT).show();
                     newProductName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
                 } else if (! newProductQuantity.getText().toString().equals("") && ! isNumeric(newProductQuantity.getText().toString())) {
-                    Toast.makeText(getContext(), "Invalid product quantity", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.product_invalid_quantity), Toast.LENGTH_SHORT).show();
                     newProductQuantity.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
                 } else if (! newProductPrice.getText().toString().equals("") && ! isNumeric(newProductPrice.getText().toString())) {
-                    Toast.makeText(getContext(), "Invalid product price", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.product_invalid_price), Toast.LENGTH_SHORT).show();
                     newProductPrice.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
                 } else {
                     product = new Product();
@@ -153,13 +153,13 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
         protected void onPostExecute(Void result) {
             if (singleton.getStatus() != 200) {
                 try {
-                    throw new Exception("An error when adding a product");
+                    throw new Exception(getContext().getResources().getString(R.string.product_save_error));
                 } catch (Exception e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             } else {
-                Toast.makeText(getContext(), "The product has been added", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.product_save_success), Toast.LENGTH_LONG).show();
                 parse = new Parse();
                 parse.parseJsonToGetNewProduct(singleton.getBody());
                 singleton.getAdapterShoppingListProducts().notifyDataSetChanged();
@@ -185,13 +185,13 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
 
             if (singleton.getStatus() != 200) {
                 try {
-                    throw new Exception("An error when modifying the product");
+                    throw new Exception(getContext().getResources().getString(R.string.product_modify_error));
                 } catch (Exception e) {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             } else {
-                Toast.makeText(getContext(), "Product has been modified", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getContext().getResources().getString(R.string.product_modify_success), Toast.LENGTH_LONG).show();
                 singleton.getProduct().setName(product.getName());
                 singleton.getProduct().setQuantity(Integer.parseInt(String.valueOf(product.getQuantity())));
                 singleton.getProduct().setPrice(Integer.parseInt(String.valueOf(product.getPrice())));

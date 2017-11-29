@@ -62,6 +62,21 @@
     <string name="shopping_list_share_success">Lista de compra ha sido compartida</string>
     <string name="shopping_list_delete_error">Error al eliminar la lista de compra</string>
     <string name="shopping_list_delete_success">Lista de compra ha sido eliminada</string>
+    <string name="shopping_list_modify_error">Error al modificar la lista de compra</string>
+    <string name="shopping_list_modify_success">Lista de compra modificada</string>
+    <string name="shopping_list_save_error">Error al añadir la lista de compra</string>
+    <string name="shopping_list_save_success">Lista de compra añadida</string>
+
+    <string name="shopping_list_invalid_name">Nombre lista de compra inválido</string>
+    <string name="shopping_list_pending">está pendiente!</string>
+    <string name="shopping_list_no_date">Sin fecha</string>
+    <string name="shopping_list_no_time">Sin hora</string>
+
+    <string name="shopping_list_title">Nueva lista de compra</string>
+    <string name="shopping_list_name">Nombre lista de compra</string>
+    <string name="shopping_list_notifications">Notificaciones</string>
+    <string name="shopping_list_date">Fecha lista de compra</string>
+    <string name="shopping_list_time">Hora lista de compra</string>
 
     <!-- Product resources -->
     <string name="product_options">Opciones</string>
@@ -77,10 +92,21 @@
 
     <string name="product_modify_status_error">Error al añadir el producto al carrito</string>
     <string name="product_modify_status_success">Producto añadido al carrito</string>
+    <string name="product_modify_error">Error al añadir el producto</string>
+    <string name="product_modify_success">Producto añadido</string>
     <string name="product_delete_error">Error al eliminar el producto</string>
     <string name="product_delete_success">Producto ha sido eliminado</string>
     <string name="product_save_error">Error al añadir el producto</string>
     <string name="product_save_success">Producto ha sido añadido</string>
+
+    <string name="product_invalid_name">Nombre producto inválido</string>
+    <string name="product_invalid_quantity">Cantidad producto inválida</string>
+    <string name="product_invalid_price">Precio producto inválido</string>
+
+    <string name="product_title">Nuevo producto</string>
+    <string name="product_name">Nombre producto</string>
+    <string name="product_quantity_m">Cantidad producto</string>
+    <string name="product_price_m">Precio producto</string>
 
     <!-- Settings  resources -->
     <string name="spanish">Español</string>

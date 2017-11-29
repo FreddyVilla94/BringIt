@@ -65,10 +65,25 @@
     <string name="shopping_list_delete">Delete</string>
     <string name="shopping_list_modify">Modifiy</string>
 
-    <string name="shopping_list_share_error">An error sharing shopping list</string>
+    <string name="shopping_list_share_error">An error when sharing shopping list</string>
     <string name="shopping_list_share_success">Shopping list has been shared</string>
-    <string name="shopping_list_delete_error">An error deleting shopping list</string>
+    <string name="shopping_list_delete_error">An error when deleting shopping list</string>
     <string name="shopping_list_delete_success">Shopping list has been eliminated</string>
+    <string name="shopping_list_modify_error">An error when modifying shopping list</string>
+    <string name="shopping_list_modify_success">Shopping list has been modified</string>
+    <string name="shopping_list_save_error">An error when adding shopping list</string>
+    <string name="shopping_list_save_success">Shopping list has been added</string>
+
+    <string name="shopping_list_invalid_name">Invalid shopping list name</string>
+    <string name="shopping_list_pending">is pending!</string>
+    <string name="shopping_list_no_date">No date</string>
+    <string name="shopping_list_no_time">No time</string>
+
+    <string name="shopping_list_title">New shopping  list</string>
+    <string name="shopping_list_name">Shopping list name</string>
+    <string name="shopping_list_notifications">Notifications</string>
+    <string name="shopping_list_date">Shopping list date</string>
+    <string name="shopping_list_time">Shopping list time</string>
 
     <!-- Product resources -->
     <string name="product_options">Options</string>
@@ -83,10 +98,21 @@
 
     <string name="product_modify_status_error">An error when adding product to cart</string>
     <string name="product_modify_status_success">Product has been added to cart</string>
+    <string name="product_modify_error">An error when modifying product</string>
+    <string name="product_modify_success">Product has been modified</string>
     <string name="product_delete_error">An error when deleting product</string>
     <string name="product_delete_success">Product has been eliminated</string>
     <string name="product_save_error">An error when adding a product</string>
-    <string name="product_save_success">The product has been added</string>
+    <string name="product_save_success">Product has been added</string>
+
+    <string name="product_invalid_name">Invalid product name</string>
+    <string name="product_invalid_quantity">Invalid product quantity</string>
+    <string name="product_invalid_price">Invalid product price</string>
+
+    <string name="product_title">New product</string>
+    <string name="product_name">Product name</string>
+    <string name="product_quantity_m">Product quantity</string>
+    <string name="product_price_m">Product price</string>
 
     <!-- Settings  resources -->
     <string name="spanish">Spanish</string>

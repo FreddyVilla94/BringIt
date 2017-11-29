@@ -18,7 +18,7 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/colorPrimary"
             android:textSize="10pt"
-            android:text="New shopping list"/>
+            android:text="@string/shopping_list_title"/>
 
         <LinearLayout
             android:focusable="true"
@@ -40,7 +40,7 @@
         <EditText
             android:layout_below="@+id/divider"
             android:id="@+id/new_shopping_list_name"
-            android:hint="Shopping list name"
+            android:hint="@string/shopping_list_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -58,7 +58,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/switch_height"
-            android:text="Notifications"
+            android:text="@string/shopping_list_notifications"
             android:textColor="@color/colorPrimary"
             android:gravity="center"
             android:layout_below="@+id/new_shopping_list_name"
@@ -84,7 +84,7 @@
             android:layout_below="@+id/notifications"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="Shopping list date"
+            android:hint="@string/shopping_list_date"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -102,7 +102,7 @@
             android:layout_marginBottom="12dp"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="Shopping list hour"
+            android:hint="@string/shopping_list_time"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textAppearance="?android:attr/textAppearanceSmall"

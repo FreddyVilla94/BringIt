@@ -15,7 +15,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="15dp"
-            android:text="New product"
+            android:text="@string/product_title"
             android:textColor="@color/colorPrimary"
             android:textSize="10pt"
             android:id="@+id/title"/>
@@ -40,7 +40,7 @@
         <EditText
             android:layout_below="@+id/divider"
             android:id="@+id/new_product_name"
-            android:hint="Product name"
+            android:hint="@string/product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -59,7 +59,7 @@
         <EditText
             android:layout_below="@+id/new_product_name"
             android:id="@+id/new_product_quantity"
-            android:hint="Product quantity"
+            android:hint="@string/product_quantity_m"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -78,7 +78,7 @@
         <EditText
             android:layout_below="@+id/new_product_quantity"
             android:id="@+id/new_product_price"
-            android:hint="Product price"
+            android:hint="@string/product_price_m"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
