@@ -41,7 +41,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:textSize="8pt"
-            android:hint="Place a user email" />
+            android:hint="@string/share_auto_complete" />
 
     </RelativeLayout>
 

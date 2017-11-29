@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.MainActivity;
 import com.example.sergioaraya.bringit.R;
 
@@ -25,6 +26,8 @@ import java.util.Locale;
  * to handle interaction events.
  */
 public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+
+    Singleton singleton = Singleton.getInstance();
 
     private CheckBox englishLanguage;
     private CheckBox spanishLanguage;
@@ -91,6 +94,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                 languageToLoad = "en";
                 locale = new Locale(languageToLoad);
                 Locale.setDefault(locale);
+                singleton.setLocale(languageToLoad);
                 config = new Configuration();
                 config.locale = locale;
                 getResources().updateConfiguration(config,
@@ -103,6 +107,7 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
                 languageToLoad = "es";
                 locale = new Locale(languageToLoad);
                 Locale.setDefault(locale);
+                singleton.setLocale(languageToLoad);
                 config = new Configuration();
                 config.locale = locale;
                 getResources().updateConfiguration(config,

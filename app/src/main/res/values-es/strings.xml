@@ -108,6 +108,15 @@
     <string name="product_quantity_m">Cantidad producto</string>
     <string name="product_price_m">Precio producto</string>
 
+    <!-- Speech resources -->
+    <string name="speech_start">Di algo!</string>
+    <string name="speech_error">Lo sentimos! Tu dispositivo no soporta este recurso</string>
+    <string name="speech_yes">Si</string>
+    <string name="speech_no">No</string>
+
+    <!--Share resources -->
+    <string name="share_auto_complete">Digite el correo del usuario</string>
+
     <!-- Settings  resources -->
     <string name="spanish">Español</string>
     <string name="english">Inglés</string>

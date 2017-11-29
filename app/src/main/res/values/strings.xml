@@ -114,6 +114,15 @@
     <string name="product_quantity_m">Product quantity</string>
     <string name="product_price_m">Product price</string>
 
+    <!-- Speech resources -->
+    <string name="speech_start">Say something!</string>
+    <string name="speech_error">Sorry! Your device doesn\'t support speech input</string>
+    <string name="speech_yes">Yes</string>
+    <string name="speech_no">No</string>
+
+    <!--Share resources -->
+    <string name="share_auto_complete">Place a user email</string>
+
     <!-- Settings  resources -->
     <string name="spanish">Spanish</string>
     <string name="english">English</string>

@@ -3,6 +3,8 @@ package com.example.sergioaraya.bringit.Classes;
 import com.example.sergioaraya.bringit.Adapters.AdapterShoppingListProducts;
 import com.example.sergioaraya.bringit.Adapters.AdapterShoppingLists;
 
+import java.util.Locale;
+
 /**
  * Created by SergioAraya on 15/09/2017.
  */
@@ -17,6 +19,7 @@ public class Singleton {
     private Product product = new Product();
     private AdapterShoppingLists adapterShoppingLists;
     private AdapterShoppingListProducts adapterShoppingListProducts;
+    private String locale = Locale.getDefault().getCountry();
     private int controlUpdateShoppingList;
     private int controlUpdateProduct;
 
@@ -69,9 +72,14 @@ public class Singleton {
 
     public void setAdapterShoppingListProducts(AdapterShoppingListProducts adapterShoppingListProducts) { this.adapterShoppingListProducts = adapterShoppingListProducts; }
 
+    public String getLocale() { return locale; }
+
+    public void setLocale(String locale) { this.locale = locale; }
+
     public int getControlUpdateShoppingList() { return controlUpdateShoppingList; }
 
     public void setControlUpdateShoppingList(int controlUpdateShoppingList) { this.controlUpdateShoppingList = controlUpdateShoppingList; }
+
 
     public int getControlUpdateProduct() { return controlUpdateProduct; }
 
