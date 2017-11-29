@@ -8,8 +8,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
@@ -273,7 +275,7 @@ public class ShoppingListsFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TextView shareShoppingListTitle = (TextView) dialog.findViewById(R.id.share_shopping_list_title);
-        AutoCompleteTextView shareShoppingListAutoComplete = (AutoCompleteTextView) dialog.findViewById(R.id.share_shopping_list_auto_complete);
+        final AutoCompleteTextView shareShoppingListAutoComplete = (AutoCompleteTextView) dialog.findViewById(R.id.share_shopping_list_auto_complete);
 
         shareShoppingListTitle.setText(getResources().getString(R.string.shopping_list_share_title));
 
@@ -290,11 +292,17 @@ public class ShoppingListsFragment extends Fragment {
 
         CuboidButton shareShoppingListButton = (CuboidButton) dialog.findViewById(R.id.button_share_shopping_list);
         shareShoppingListButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
-                selectedId = getIdUserShoppingListShare(selectedEmail);
-                new taskShareShoppingList().execute();
+                if (! getIdUserShoppingListShare(selectedEmail).equals("")) {
+                    dialog.dismiss();
+                    selectedId = getIdUserShoppingListShare(selectedEmail);
+                    new taskShareShoppingList().execute();
+                } else {
+                    shareShoppingListAutoComplete.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.app_alert, 0);
+                    Toast.makeText(getContext(), getResources().getString(R.string.share_invalid_email), Toast.LENGTH_LONG).show();
+                }
             }
         });
 

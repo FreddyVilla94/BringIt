@@ -122,6 +122,7 @@
 
     <!--Share resources -->
     <string name="share_auto_complete">Place a user email</string>
+    <string name="share_invalid_email">Invalid email</string>
 
     <!-- Settings  resources -->
     <string name="language">Language</string>

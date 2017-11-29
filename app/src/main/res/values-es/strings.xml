@@ -116,6 +116,7 @@
 
     <!--Share resources -->
     <string name="share_auto_complete">Digite el correo del usuario</string>
+    <string name="share_invalid_email">Correo inválido</string>
 
     <!-- Settings  resources -->
     <string name="language">Idioma</string>
