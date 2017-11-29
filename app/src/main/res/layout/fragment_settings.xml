@@ -6,13 +6,13 @@
     android:orientation="vertical"
     tools:context="com.example.sergioaraya.bringit.Fragments.SettingsFragment">
 
-    <CheckBox android:id="@+id/english_language"
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/english" />
-    <CheckBox android:id="@+id/spanish_language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/spanish" />
+        android:text="@string/language"
+        android:textSize="10pt"
+        android:id="@+id/setting_language"/>
 
 </LinearLayout>

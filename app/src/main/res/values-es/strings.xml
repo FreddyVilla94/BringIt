@@ -118,6 +118,8 @@
     <string name="share_auto_complete">Digite el correo del usuario</string>
 
     <!-- Settings  resources -->
+    <string name="language">Idioma</string>
+    <string name="choose_language">Selecciona un idioma</string>
     <string name="spanish">Español</string>
     <string name="english">Inglés</string>
 

@@ -44,10 +44,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleDrawable="@drawable/password_eye"
             app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
             <EditText android:id="@+id/login_password"
-                android:drawableRight="@drawable/password_eye"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"

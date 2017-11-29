@@ -124,6 +124,8 @@
     <string name="share_auto_complete">Place a user email</string>
 
     <!-- Settings  resources -->
+    <string name="language">Language</string>
+    <string name="choose_language">Choose a language</string>
     <string name="spanish">Spanish</string>
     <string name="english">English</string>
 

@@ -1,5 +1,6 @@
 package com.example.sergioaraya.bringit.Fragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.MainActivity;
@@ -25,12 +29,12 @@ import java.util.Locale;
  * {@link SettingsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class SettingsFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
+public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     Singleton singleton = Singleton.getInstance();
 
-    private CheckBox englishLanguage;
-    private CheckBox spanishLanguage;
+    private ImageButton englishLanguage;
+    private ImageButton spanishLanguage;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,6 +42,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     private String languageToLoad;
     private Locale locale;
     private Configuration config;
+
+    private TextView settingLanguage;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -54,11 +60,8 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        englishLanguage = (CheckBox) getActivity().findViewById(R.id.english_language);
-        spanishLanguage = (CheckBox) getActivity().findViewById(R.id.spanish_language);
-
-        englishLanguage.setOnCheckedChangeListener(this);
-        spanishLanguage.setOnCheckedChangeListener(this);
+        settingLanguage = (TextView) getActivity().findViewById(R.id.setting_language);
+        settingLanguage.setOnClickListener(this);
 
     }
 
@@ -87,34 +90,52 @@ public class SettingsFragment extends Fragment implements CompoundButton.OnCheck
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
+    public void onClick(View v) {
+        switch (v.getId()) {
 
-            case R.id.english_language:
-                languageToLoad = "en";
-                locale = new Locale(languageToLoad);
-                Locale.setDefault(locale);
-                singleton.setLocale(languageToLoad);
-                config = new Configuration();
-                config.locale = locale;
-                getResources().updateConfiguration(config,
-                        getResources().getDisplayMetrics());
-                intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-                break;
+            case R.id.setting_language:
 
-            case R.id.spanish_language:
-                languageToLoad = "es";
-                locale = new Locale(languageToLoad);
-                Locale.setDefault(locale);
-                singleton.setLocale(languageToLoad);
-                config = new Configuration();
-                config.locale = locale;
-                getResources().updateConfiguration(config,
-                        getResources().getDisplayMetrics());
-                intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-                break;
+                final Dialog dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.dialog_select_language);
+
+                englishLanguage = (ImageButton) dialog.findViewById(R.id.button_english_language);
+                spanishLanguage = (ImageButton) dialog.findViewById(R.id.button_spanish_language);
+
+                englishLanguage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        languageToLoad = "en";
+                        locale = new Locale(languageToLoad);
+                        Locale.setDefault(locale);
+                        singleton.setLocale(languageToLoad);
+                        config = new Configuration();
+                        config.locale = locale;
+                        getResources().updateConfiguration(config,
+                                getResources().getDisplayMetrics());
+                        dialog.dismiss();
+                        intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                spanishLanguage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        languageToLoad = "es";
+                        locale = new Locale(languageToLoad);
+                        Locale.setDefault(locale);
+                        singleton.setLocale(languageToLoad);
+                        config = new Configuration();
+                        config.locale = locale;
+                        getResources().updateConfiguration(config,
+                                getResources().getDisplayMetrics());
+                        dialog.dismiss();
+                        intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+                dialog.show();
 
             default:
                 break;
