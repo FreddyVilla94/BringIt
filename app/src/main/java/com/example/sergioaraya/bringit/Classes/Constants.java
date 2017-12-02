@@ -35,7 +35,8 @@ public class Constants {
     private static final String URL_SHARESHOPLIST = "https://listas-comprasb.herokuapp.com/shareShopList/";
 
     // Regular expression to validate the user email input.
-    private static final String PATTERN_EMAIL = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,64}";
+    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*$";
 
     // Regular expression to validate the user password input.
     private static final String PATTERN_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)([A-Za-z\\d]){8,12}$";

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -110,7 +111,7 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
                     }
                     if (singleton.getControlUpdateProduct() == 1) {
                         this.dismiss();
-                        new taskModifyProductShoppingList ().execute();
+                        new taskModifyProductShoppingList().execute();
                     } else {
                         this.dismiss();
                         new taskSaveProductShoppingList().execute();

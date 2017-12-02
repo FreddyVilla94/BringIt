@@ -173,6 +173,7 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
                         new taskDeleteProductShoppingList().execute();
                     }
                 } else {
+                    singleton.setControlUpdateProduct(1);
                     createProductShoppingListDialogModify();
                 }
             }
@@ -336,7 +337,6 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
      * Display a dialog to add a new product
      */
     private void createProductShoppingListDialogModify() {
-        singleton.setControlUpdateProduct(1);
         NewShoppingListProductDialog newShoppingListProductDialog = new NewShoppingListProductDialog(this);
         newShoppingListProductDialog.show();
     }

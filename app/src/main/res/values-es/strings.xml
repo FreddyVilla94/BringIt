@@ -92,8 +92,8 @@
 
     <string name="product_modify_status_error">Error al añadir el producto al carrito</string>
     <string name="product_modify_status_success">Producto añadido al carrito</string>
-    <string name="product_modify_error">Error al añadir el producto</string>
-    <string name="product_modify_success">Producto añadido</string>
+    <string name="product_modify_error">Error al modificar el producto</string>
+    <string name="product_modify_success">Producto modificado</string>
     <string name="product_delete_error">Error al eliminar el producto</string>
     <string name="product_delete_success">Producto ha sido eliminado</string>
     <string name="product_save_error">Error al añadir el producto</string>

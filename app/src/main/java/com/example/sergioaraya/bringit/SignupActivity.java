@@ -83,7 +83,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         // delay in presenting the user with the next sign in step.
         progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Signing in...");
+        progressDialog.setMessage(getResources().getString(R.string.login_activity_signing_in));
 
         buttonRegister.setOnClickListener(this);
         loginLink.setOnClickListener(this);
