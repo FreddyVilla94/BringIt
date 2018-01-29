@@ -8,13 +8,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.cuboid.cuboidcirclebutton.CuboidButton;
 import com.example.sergioaraya.bringit.Classes.Constants;
 import com.example.sergioaraya.bringit.Classes.Product;
 import com.example.sergioaraya.bringit.Classes.Singleton;
@@ -22,10 +21,11 @@ import com.example.sergioaraya.bringit.Methods.Parse;
 import com.example.sergioaraya.bringit.R;
 import com.example.sergioaraya.bringit.Requests.Post;
 import com.example.sergioaraya.bringit.Requests.Put;
-import com.example.sergioaraya.bringit.ShoppingListProductsActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import at.markushi.ui.CircleButton;
 
 /**
  * Created by SergioAraya on 25/10/2017.
@@ -39,7 +39,7 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
     private EditText newProductName;
     private EditText newProductQuantity;
     private EditText newProductPrice;
-    private CuboidButton buttonNewProduct;
+    private CircleButton buttonNewProduct;
 
     private Context context;
     private Product product;
@@ -64,7 +64,7 @@ public class NewShoppingListProductDialog extends Dialog implements View.OnClick
         newProductName = (EditText) findViewById(R.id.new_product_name);
         newProductQuantity = (EditText) findViewById(R.id.new_product_quantity);
         newProductPrice = (EditText) findViewById(R.id.new_product_price);
-        buttonNewProduct = (CuboidButton) findViewById(R.id.button_new_product);
+        buttonNewProduct = (CircleButton) findViewById(R.id.button_new_product);
 
         if (singleton.getControlUpdateProduct() == 1) {
             newProductName.setText(singleton.getProduct().getName());

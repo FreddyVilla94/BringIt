@@ -45,7 +45,7 @@
 
     </RelativeLayout>
 
-    <com.cuboid.cuboidcirclebutton.CuboidButton
+    <!--<com.cuboid.cuboidcirclebutton.CuboidButton
         android:id="@+id/button_share_shopping_list"
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -55,6 +55,15 @@
         app:cub_icon="@drawable/ok"
         app:cub_border_radius="2dp"
         app:cub_border_color="@color/colorPrimaryDark"
-        app:cub_hover_color="#FFFFFE" />
+        app:cub_hover_color="#FFFFFE" />-->
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/button_share_shopping_list"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="134dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ok"
+        app:cb_color="@color/colorWhite" />
 
 </RelativeLayout>

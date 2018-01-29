@@ -24,11 +24,11 @@ import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.cuboid.cuboidcirclebutton.CuboidButton;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
 import com.example.sergioaraya.bringit.Classes.Singleton;
 import com.example.sergioaraya.bringit.Methods.Parse;
@@ -43,6 +43,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import at.markushi.ui.CircleButton;
+
 
 public class NewShoppingListDialog extends Dialog implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -52,7 +54,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
     private Switch switchNotifications;
     private EditText newShoppingListDate;
     private EditText newShoppingListTime;
-    private CuboidButton buttonNewShoppingList;
+    private CircleButton buttonNewShoppingList;
 
     private int dd, mm, yyyy, HH, MM;
 
@@ -80,7 +82,7 @@ public class NewShoppingListDialog extends Dialog implements View.OnClickListene
         newShoppingListTime = (EditText) findViewById(R.id.new_shopping_list_time);
         newShoppingListName = (EditText) findViewById(R.id.new_shopping_list_name);
         switchNotifications = (Switch) findViewById(R.id.switch_notifications);
-        buttonNewShoppingList = (CuboidButton) findViewById(R.id.button_new_shopping_list);
+        buttonNewShoppingList = (CircleButton) findViewById(R.id.button_new_shopping_list);
 
         if (singleton.getControlUpdateShoppingList() == 1) {
             newShoppingListName.setText(singleton.getShoppingList().getName());

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BringIt.iml" filepath="$PROJECT_DIR$/BringIt.iml" />
+      <module fileurl="file://C:\Users\Sergio\Desktop\ShoppingListsManagement\BringIt.iml" filepath="C:\Users\Sergio\Desktop\ShoppingListsManagement\BringIt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ShoppingListsManagement.iml" filepath="$PROJECT_DIR$/ShoppingListsManagement.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -26,7 +26,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cuboid.cuboidcirclebutton.CuboidButton;
 import com.example.sergioaraya.bringit.Adapters.AdapterShoppingLists;
 import com.example.sergioaraya.bringit.Classes.Constants;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
@@ -48,6 +47,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
+import at.markushi.ui.CircleButton;
 import butterknife.BindView;
 
 /**
@@ -290,7 +290,7 @@ public class ShoppingListsFragment extends Fragment {
             }
         });
 
-        CuboidButton shareShoppingListButton = (CuboidButton) dialog.findViewById(R.id.button_share_shopping_list);
+        CircleButton shareShoppingListButton = (CircleButton) dialog.findViewById(R.id.button_share_shopping_list);
         shareShoppingListButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override

@@ -186,15 +186,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragment = null;
 
         if (id == R.id.nav_shopping_lists) {
+            toolbar.setTitle(getResources().getString(R.string.main_activity_your_shopping_lists));
+            toolbar.setSubtitle(getResources().getString(R.string.main_activity_greeting));
             fragment = new ShoppingListsFragment();
             FragmentTransaction = true;
         } else if (id == R.id.nav_products) {
+            toolbar.setTitle(getResources().getString(R.string.main_activity_products));
+            toolbar.setSubtitle("");
             fragment = new ProductsFragment();
             FragmentTransaction = true;
 
         } else if (id == R.id.nav_chat) {
-
+            /*Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);*/
+            overridePendingTransition(R.anim.pull_in_right, R.anim.push_out_left);
         } else if (id == R.id.nav_settings) {
+            toolbar.setTitle(getResources().getString(R.string.main_activity_settings));
+            toolbar.setSubtitle("");
             fragment = new SettingsFragment();
             FragmentTransaction = true;
         } else if (id == R.id.nav_logout) {

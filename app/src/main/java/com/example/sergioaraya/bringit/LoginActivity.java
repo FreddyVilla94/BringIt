@@ -11,8 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +21,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cuboid.cuboidcirclebutton.CuboidButton;
 import com.example.sergioaraya.bringit.Classes.Constants;
 import com.example.sergioaraya.bringit.Classes.Product;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
@@ -56,6 +53,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import at.markushi.ui.CircleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -67,9 +65,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @BindView(R.id.login_email) EditText loginEmail;
     @BindView(R.id.login_password) EditText loginPassword;
     @BindView(R.id.button_login) Button buttonLogin;
-    @BindView(R.id.button_google) CuboidButton buttonGoogle;
-    @BindView(R.id.button_twitter) CuboidButton buttonTwitter;
-    @BindView(R.id.button_facebook) CuboidButton buttonFacebook;
+    @BindView(R.id.button_google) CircleButton buttonGoogle;
+    @BindView(R.id.button_twitter) CircleButton buttonTwitter;
+    @BindView(R.id.button_facebook) CircleButton buttonFacebook;
     @BindView(R.id.register_link) TextView registerLink;
 
     // Variable used to hide keyboard
