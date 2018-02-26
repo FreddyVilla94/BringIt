@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/add_product_shopping_list_text"
-        android:title="Add product shopping list text"
-        android:icon="@drawable/icon_add"
-        android:orderInCategory="1"
-        app:showAsAction="always" >
-    </item>
-
-    <item
-        android:id="@+id/add_product_shopping_list_speech"
-        android:title="Add product shopping list speech"
-        android:icon="@drawable/icon_speech"
-        android:orderInCategory="2"
-        app:showAsAction="always" >
-    </item>
 
     <item
         android:id="@+id/search_product"
@@ -25,5 +10,30 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" >
     </item>
+
+    <item
+        android:id="@+id/add_product_shopping_list_text"
+        android:title="Add product shopping list text"
+        android:icon="@drawable/icon_add"
+        android:orderInCategory="1"
+        app:showAsAction="always" >
+    </item>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/add_product_shopping_list_speech_google"
+            android:icon="@drawable/app_shopping_lists"
+            android:title="@string/main_activity_shopping_lists_google" />
+        <item
+            android:id="@+id/add_product_shopping_list_speech_watson"
+            android:icon="@drawable/app_products"
+            android:title="@string/main_activity_shopping_lists_watson" />
+        <!--item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/app_chat"
+            android:title="@string/main_activity_chat" /-->
+
+    </group>
 
 </menu>

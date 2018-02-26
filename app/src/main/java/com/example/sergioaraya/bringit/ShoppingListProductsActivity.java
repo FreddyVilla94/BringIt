@@ -98,9 +98,14 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
                 NewShoppingListProductDialog newShoppingListProductDialog = new NewShoppingListProductDialog(ShoppingListProductsActivity.this);
                 newShoppingListProductDialog.show();
                 return true;
-            case R.id.add_product_shopping_list_speech:
+            case R.id.add_product_shopping_list_speech_google:
                 singleton.setControlUpdateProduct(0);
-                promptSpeechInput();
+                promptSpeechInput(); //Start Google Speech Recognition Service
+                return true;
+            case R.id.add_product_shopping_list_speech_watson:
+                //Toast.makeText(getApplicationContext(),"IBM WATSON",Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(this,MainActivityIBMWatsonSTT.class);
+                //startActivity(intent);
                 return true;
             case R.id.search_product:
                 return true;
