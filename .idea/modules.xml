@@ -4,9 +4,7 @@
     <modules>
       <module fileurl="file://C:\Users\Sergio\Desktop\ShoppingListsManagement\BringIt.iml" filepath="C:\Users\Sergio\Desktop\ShoppingListsManagement\BringIt.iml" />
       <module fileurl="file://$PROJECT_DIR$/ShoppingListsManagement.iml" filepath="$PROJECT_DIR$/ShoppingListsManagement.iml" />
-      <module fileurl="file://C:\Users\Freddy\Documents\Asistencia\ShoppingListsManagement\ShoppingListsManagement.iml" filepath="C:\Users\Freddy\Documents\Asistencia\ShoppingListsManagement\ShoppingListsManagement.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Freddy\Documents\Asistencia\ShoppingListsManagement\app\app.iml" filepath="C:\Users\Freddy\Documents\Asistencia\ShoppingListsManagement\app\app.iml" />
     </modules>
   </component>
 </project>
