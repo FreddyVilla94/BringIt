@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
     buildToolsVersion "27.0.2"
     defaultConfig {
         applicationId "com.example.sergioaraya.bringit"
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion 19
+        targetSdkVersion 26
         useLibrary 'org.apache.http.legacy'
         multiDexEnabled true
         versionCode 1
@@ -47,6 +47,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile group: 'com.ibm.watson.developer_cloud', name: 'speech-to-text', version: '3.5.3'
+    compile 'com.ibm.watson.developer_cloud:android-sdk:0.4.3'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

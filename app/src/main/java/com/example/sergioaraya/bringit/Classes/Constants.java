@@ -12,6 +12,10 @@ public class Constants {
     private static final String TAG_MA= "MainActivity";
     private static final String TAG_SLSA = "ShopListsActivity";
 
+    public static final String APP_USERNAME = "a24c00f7-37bf-41bc-bfbe-5a15018fd6a3";
+    public static final String APP_PASSWORD = "TrXUNxKytfVU";
+    public static final String APP_ENDPOINT = "https://stream.watsonplatform.net/speech-to-text/api";
+
     // A magic number we will use to know that our sign-in error
     // resolution activity has completed.
     private static final int RC_SIGN_IN = 9001;

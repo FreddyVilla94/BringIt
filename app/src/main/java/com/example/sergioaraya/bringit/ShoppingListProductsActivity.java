@@ -1,10 +1,17 @@
 package com.example.sergioaraya.bringit;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,12 +23,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sergioaraya.bringit.Adapters.AdapterShoppingListProducts;
+import com.example.sergioaraya.bringit.Classes.Constants;
 import com.example.sergioaraya.bringit.Classes.Product;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
 import com.example.sergioaraya.bringit.Classes.Singleton;
@@ -30,15 +39,32 @@ import com.example.sergioaraya.bringit.Methods.Parse;
 import com.example.sergioaraya.bringit.Requests.Delete;
 import com.example.sergioaraya.bringit.Requests.Post;
 import com.example.sergioaraya.bringit.Requests.Put;
+import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
+import com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class ShoppingListProductsActivity extends AppCompatActivity {
 
     Singleton singleton = Singleton.getInstance();
+
+    public String palabra;
+
+    // Miscellaneous Components
+    private MicrophoneInputStream capture;
+    private SpeechToText speechService;
+
+    private boolean listening = false;
 
     private Toolbar toolbar;
     private ListView shoppingListProducts;
@@ -103,9 +129,30 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
                 promptSpeechInput(); //Start Google Speech Recognition Service
                 return true;
             case R.id.add_product_shopping_list_speech_watson:
+                //MainActivityIBM mainActivityIBM = new MainActivityIBM(ShoppingListProductsActivity.this,getParent());
+                //mainActivityIBM.show();
                 //Toast.makeText(getApplicationContext(),"IBM WATSON",Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(this,MainActivityIBMWatsonSTT.class);
+                //Intent intent = new Intent(this,MainActivityIBM.class);
                 //startActivity(intent);
+                /*requestRecordAudioPermission();
+                // Initialize Miscellaneous Components
+                speechService = initSpeechToTextService();
+                if(isConnected()){
+                    if (!listening){
+                        //resetUIState();
+                        startRecognition();
+                        listening = true;
+                    } else {
+                        try {
+                            capture.close();
+                            listening = false;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(), "Please Connect to Internet", Toast.LENGTH_LONG).show();
+                }*/
                 return true;
             case R.id.search_product:
                 return true;
@@ -217,6 +264,7 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
 
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    //Toast.makeText(getApplicationContext(),result.toString(),Toast.LENGTH_SHORT).show();
                     textSpeechInput = result.get(0);
                     String[] parse = textSpeechInput.split(" ");
                     confirmSpeechText(result.get(0), parse);
@@ -467,5 +515,228 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         setDownBarVariables();
+    }
+
+    //IBM WATSON
+    private SpeechToText initSpeechToTextService(){
+        SpeechToText service = new SpeechToText();
+        String username = Constants.APP_USERNAME;
+        String password = Constants.APP_PASSWORD;
+        service.setEndPoint(Constants.APP_ENDPOINT);
+        service.setUsernameAndPassword(username, password);
+        return service;
+    }
+
+    private boolean isConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo net = cm.getActiveNetworkInfo();
+        if (net != null && net.isAvailable() && net.isConnected()){
+            return  true;
+        }else {
+            return false;
+        }
+
+    }
+
+    private void startRecognition(){
+        capture = new MicrophoneInputStream(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    speechService.recognizeUsingWebSocket(capture,
+                            getRecognizeOptions(), new MicrophoneRecognizeDelegate());
+                }catch (Exception e){
+                    showError(e);
+                }
+            }
+        }).start();
+    }
+
+    private void showError (final Exception e){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(ShoppingListProductsActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private RecognizeOptions getRecognizeOptions(){
+        return new RecognizeOptions.Builder()
+                .continuous(true)
+                .contentType(ContentType.OPUS.toString())
+                .model(getLanguage())
+                .interimResults(true)
+                .inactivityTimeout(2000)
+                .build();
+    }
+
+    private String getLanguage(){
+        //String selectedItem = spinLang.getSelectedItem().toString();
+        /*switch (selectedItem){
+            case "Modern Standard Arabic":
+                selectedItem = "ar-AR_BroadbandModel";
+                break;
+            case "UK English":
+                selectedItem = "en-UK_BroadbandModel";
+                break;
+            case "US English":
+                selectedItem =  "en-US_BroadbandModel";
+                break;
+            case "Spanish":
+                selectedItem =  "es-ES_BroadbandModel";
+                break;
+            case "French":
+                selectedItem =  "fr-FR_BroadbandModel";
+                break;
+            case "Japanese":
+                selectedItem = "ja-JP_BroadbandModel";
+                break;
+            case "Brazilian":
+                selectedItem = "pt-BR_BroadbandModel";
+                break;
+            case "Mandarin":
+                selectedItem = "zh-CN_BroadbandModel";
+                break;
+        }*/
+        String selectedItem =  "es-ES_BroadbandModel";
+        return selectedItem;
+    }
+
+    /**
+     * Delegate for managing the response from Watson API. * More info at: https://goo.gl/ZcRiok
+     */
+    private class MicrophoneRecognizeDelegate implements RecognizeCallback {
+
+        @Override
+        public void onTranscription(final SpeechResults speechResults) {
+            final List<Transcript> totalResults = speechResults.getResults();
+            //Toast.makeText(getApplicationContext(),totalResults.toString(),Toast.LENGTH_SHORT).show();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    palabra = showResponseFromWatsonService(totalResults);
+                    //Toast.makeText(getApplicationContext(),palabra,Toast.LENGTH_SHORT).show();
+                    /*textSpeechInput = palabra;
+                    String[] parse = textSpeechInput.split(" ");
+                    confirmSpeechText(palabra, parse);*/
+                }
+
+
+            });
+
+        }
+
+        @Override
+        public void onConnected() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //statusTextView.setText("Listing ...");
+                    // Toggle the text on our record button to indicate pressing it now will abort the search.
+                    //recordButton.setText("Stop Recording");
+                }
+            });
+        }
+
+        @Override
+        public void onError(Exception e) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //statusTextView.setText("Failed.");
+                }
+            });
+        }
+
+        @Override
+        public void onDisconnected() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //statusTextView.setText("Done.");
+                    //resetUIState();
+                }
+            });
+        }
+    }
+
+    /**
+     * Method used to show up the result in the List View * @param response response from the server
+     */
+    private String showResponseFromWatsonService (List<Transcript> response){
+        final ArrayList<String> finalResultList = new ArrayList<String>();
+        String tempTranscript = null;
+        Double tempConfidence = null;
+        for (int i=0; i<response.size();i++){
+            for (int j=0; j< response.get(i).getAlternatives().size();j++){
+                tempTranscript = response.get(i).getAlternatives().get(j).getTranscript();
+                tempConfidence = response.get(i).getAlternatives().get(j).getConfidence();
+                //finalResultList.add(tempTranscript + "Confidence: " + tempConfidence);
+            }
+        }
+        return tempTranscript;
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, finalResultList);
+        /*resultList.setAdapter(adapter);
+        resultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String newString = finalResultList.get(position).substring(
+                        0,finalResultList.get(position).indexOf("Confidence"));
+                //selectedText.setText(selectedText.getText() +" "+ newString);
+            }
+        });*/
+    }
+
+    private void requestRecordAudioPermission() {
+        //check API version, do nothing if API version < 23!
+        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentapiVersion > android.os.Build.VERSION_CODES.LOLLIPOP){
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)) {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                } else {
+
+                    // No explanation needed, we can request the permission.
+
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Log.d("Activity", "Granted!");
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Log.d("Activity", "Denied!");
+                    finish();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }

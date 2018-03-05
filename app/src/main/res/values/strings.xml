@@ -205,4 +205,14 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
+    <string-array name="supported_languajes">
+        <item>US English</item>
+        <item>UK English</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>Modern Standard Arabic</item>
+        <item>Japanese</item>
+        <item>Brazilian</item>
+        <item>Mandarin</item>
+    </string-array>
 </resources>
