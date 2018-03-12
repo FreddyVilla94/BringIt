@@ -19,11 +19,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+    }
 }
 
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        url 'https://houndify.com/maven/'
+    }
 }
 
 dependencies {
@@ -54,4 +69,19 @@ dependencies {
     compile 'com.ibm.watson.developer_cloud:android-sdk:0.4.3'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    if (project.hasProperty('USE_LOCAL_HOUND_PROJECTS') && USE_LOCAL_HOUND_PROJECTS == "true") {
+        // For SoundHound internal use, use standard include method below
+        compile project(':houndify_sdk_libraries:hound_sdk')
+    }
+    else {
+        //** Standard method for including hound-sdk into a project
+        compile('hound.android:hound-sdk:' + '0.2.21' + '@aar') {
+            transitive = true
+        }
+    }
+    // Include the phrase spotter
+    compile('hound.android:phrasespotter:1.6.0') {
+        transitive = true
+    }
 }

@@ -11,10 +11,13 @@ public class Constants {
     private static final String TAG_IMG = "IMG";
     private static final String TAG_MA= "MainActivity";
     private static final String TAG_SLSA = "ShopListsActivity";
-
+    // IBM
     public static final String APP_USERNAME = "a24c00f7-37bf-41bc-bfbe-5a15018fd6a3";
     public static final String APP_PASSWORD = "TrXUNxKytfVU";
     public static final String APP_ENDPOINT = "https://stream.watsonplatform.net/speech-to-text/api";
+    // Houndify
+    public static final String CLIENT_ID = "RzLjG1ll7id-4fJe8LgcPQ==";
+    public static final String CLIENT_KEY = "eLTgHtiC43Q3CE_gBMRorEJbKgYnX6Yuxxr4AHKG3OonjKirnFGNZYS9oloqJxgfTpsqcsanpRlutsdED2XoMg==";
 
     // A magic number we will use to know that our sign-in error
     // resolution activity has completed.
