@@ -1,5 +1,9 @@
 package com.example.sergioaraya.bringit.Classes;
 
+import android.net.Uri;
+
+import com.nuance.speechkit.PcmFormat;
+
 /**
  * Created by SergioAraya on 20/09/2017.
  */
@@ -18,7 +22,18 @@ public class Constants {
     // Houndify
     public static final String CLIENT_ID = "RzLjG1ll7id-4fJe8LgcPQ==";
     public static final String CLIENT_KEY = "eLTgHtiC43Q3CE_gBMRorEJbKgYnX6Yuxxr4AHKG3OonjKirnFGNZYS9oloqJxgfTpsqcsanpRlutsdED2XoMg==";
+    //Nuance
+    public static final String APP_KEY = "13ff7d6127e8ec550fc2a9ccc9c3acfb3ce5b4f107727c0b5615d61dcc5cabe05b284182112ed720f081ecb94498b4807e697285dbee903103674ed0c3fab01f";
+    public static final String APP_ID = "NMDPPRODUCTION_Freddy_Villalobos_Gonz__lez_Speech_To_Text_20180319144454";
+    public static final String SERVER_HOST = "lhs.nmdp.nuancemobility.net";
+    public static final String SERVER_PORT = "443";
 
+    public static final String LANGUAGE = "!LANGUAGE!";
+
+    public static final Uri SERVER_URI = Uri.parse("nmsps://" + APP_ID + "@" + SERVER_HOST + ":" + SERVER_PORT);
+
+    public static final PcmFormat PCM_FORMAT = new PcmFormat(PcmFormat.SampleFormat.SignedLinear16, 16000, 1);
+    public static final String LANGUAGE_CODE = (Constants.LANGUAGE.contains("!") ? "spa-ESP" : Constants.LANGUAGE);
     // A magic number we will use to know that our sign-in error
     // resolution activity has completed.
     private static final int RC_SIGN_IN = 9001;

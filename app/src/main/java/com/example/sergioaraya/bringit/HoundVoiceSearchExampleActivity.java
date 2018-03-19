@@ -1,4 +1,4 @@
-package com.example.sergioaraya.bringit.Houndify;
+package com.example.sergioaraya.bringit;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.speech.tts.TextToSpeech;
 import android.widget.TextView;
 
 import com.example.sergioaraya.bringit.Classes.Constants;
-import com.example.sergioaraya.bringit.R;
+import com.example.sergioaraya.bringit.Houndify.StatefulRequestInfoFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.hound.android.fd.HoundSearchResult;
 import com.hound.android.libphs.PhraseSpotterReader;
@@ -257,7 +257,7 @@ public class HoundVoiceSearchExampleActivity extends Activity{
         public void onInit( int status ) {
             // Set language to use for playing text
             if ( status == TextToSpeech.SUCCESS ) {
-                int result = textToSpeech.setLanguage(Locale.US);
+                int result = textToSpeech.setLanguage(Locale.ENGLISH);
             }
         }
 

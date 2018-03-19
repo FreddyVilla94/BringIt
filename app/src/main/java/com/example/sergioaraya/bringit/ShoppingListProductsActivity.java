@@ -1,36 +1,26 @@
 package com.example.sergioaraya.bringit;
 
-import android.Manifest;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.speech.RecognizerIntent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sergioaraya.bringit.Adapters.AdapterShoppingListProducts;
-import com.example.sergioaraya.bringit.Classes.Constants;
 import com.example.sergioaraya.bringit.Classes.Product;
 import com.example.sergioaraya.bringit.Classes.ShoppingList;
 import com.example.sergioaraya.bringit.Classes.Singleton;
@@ -40,18 +30,10 @@ import com.example.sergioaraya.bringit.Requests.Delete;
 import com.example.sergioaraya.bringit.Requests.Post;
 import com.example.sergioaraya.bringit.Requests.Put;
 import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
-import com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class ShoppingListProductsActivity extends AppCompatActivity {
@@ -130,8 +112,12 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
                 return true;
             case R.id.add_product_shopping_list_speech_watson:
                 //Toast.makeText(getApplicationContext(),"IBM WATSON",Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(this,MainActivityIBM.class);
-                //startActivity(intent);
+                Intent intent = new Intent(this,MainActivityIBM.class);
+                startActivity(intent);
+                return true;
+            case R.id.add_product_shopping_list_speech_nuance:
+                Intent intentNuance = new Intent(this, MainActivityNuance.class);
+                startActivity(intentNuance);
                 return true;
             case R.id.search_product:
                 return true;

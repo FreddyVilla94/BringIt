@@ -29,6 +29,10 @@
             android:id="@+id/add_product_shopping_list_speech_watson"
             android:icon="@drawable/app_products"
             android:title="@string/main_activity_shopping_lists_watson" />
+        <item
+            android:id="@+id/add_product_shopping_list_speech_nuance"
+            android:icon="@drawable/app_products"
+            android:title="@string/main_activity_shopping_lists_nuance" />
         <!--item
             android:id="@+id/nav_chat"
             android:icon="@drawable/app_chat"
