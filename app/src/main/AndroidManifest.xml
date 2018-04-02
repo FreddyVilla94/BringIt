@@ -53,8 +53,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MainActivityNuance"
-            android:label="MainActivityNuance"
+            android:name=".HoundVoiceSearchExampleActivity"
+            android:label="MainActivityHoundy"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

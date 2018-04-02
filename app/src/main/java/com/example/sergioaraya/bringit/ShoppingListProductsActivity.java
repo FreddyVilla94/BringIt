@@ -115,9 +115,9 @@ public class ShoppingListProductsActivity extends AppCompatActivity {
                 Intent intent = new Intent(this,MainActivityIBM.class);
                 startActivity(intent);
                 return true;
-            case R.id.add_product_shopping_list_speech_nuance:
-                Intent intentNuance = new Intent(this, MainActivityNuance.class);
-                startActivity(intentNuance);
+            case R.id.add_product_shopping_list_speech_houndy:
+                Intent intentHoundy = new Intent(this, HoundVoiceSearchExampleActivity.class);
+                startActivity(intentHoundy);
                 return true;
             case R.id.search_product:
                 return true;

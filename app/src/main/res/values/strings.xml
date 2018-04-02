@@ -59,7 +59,7 @@
     <string name="main_activity_log_out">Logout</string>
     <string name="main_activity_shopping_lists_google">Google</string>
     <string name="main_activity_shopping_lists_watson">Watson</string>
-    <string name="main_activity_shopping_lists_nuance">Nuance</string>
+    <string name="main_activity_shopping_lists_houndy">Houndify</string>
 
     <!-- Shopping list resources -->
     <string name="shopping_list_options">Options</string>
